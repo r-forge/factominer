@@ -1,0 +1,343 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HEAD></HEAD><HTML><BODY>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Package FactoMineR:  Contents">
+<param name="Local" value="00Index.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Package FactoMineR:  R objects">
+</OBJECT>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="AFDM">
+<param name="Local" value="AFDM.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="CA">
+<param name="Local" value="CA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="catdes">
+<param name="Local" value="catdes.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="children">
+<param name="Local" value="children.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="coeffRV">
+<param name="Local" value="coeffRV.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="coord.ellipse">
+<param name="Local" value="coord.ellipse.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="decathlon">
+<param name="Local" value="decathlon.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="dimdesc">
+<param name="Local" value="dimdesc.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="DMFA">
+<param name="Local" value="DMFA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="GPA">
+<param name="Local" value="gpa.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="graph.var">
+<param name="Local" value="graph.var.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="HMFA">
+<param name="Local" value="HMFA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="MCA">
+<param name="Local" value="MCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="MFA">
+<param name="Local" value="MFA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="PCA">
+<param name="Local" value="PCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="plot.AFDM">
+<param name="Local" value="plot.AFDM.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="plot.CA">
+<param name="Local" value="plot.CA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="plot.DMFA">
+<param name="Local" value="plot.DMFA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="plot.GPA">
+<param name="Local" value="plot.GPA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="plot.GPApartial">
+<param name="Local" value="plot.GPApartial.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="plot.HMFA">
+<param name="Local" value="plot.HMFA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="plot.MCA">
+<param name="Local" value="plot.MCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="plot.MFA">
+<param name="Local" value="plot.MFA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="plot.MFApartial">
+<param name="Local" value="plot.MFApartial.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="plot.PCA">
+<param name="Local" value="plot.PCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="poison">
+<param name="Local" value="poison.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="poison.text">
+<param name="Local" value="poison.text.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="prefpls">
+<param name="Local" value="prefpls.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="print.AFDM">
+<param name="Local" value="print.AFDM.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="print.CA">
+<param name="Local" value="print.CA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="print.GPA">
+<param name="Local" value="print.GPA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="print.HMFA">
+<param name="Local" value="print.HMFA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="print.MCA">
+<param name="Local" value="print.MCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="print.MFA">
+<param name="Local" value="print.MFA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="print.PCA">
+<param name="Local" value="print.PCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="simule">
+<param name="Local" value="simule.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="svd.triplet">
+<param name="Local" value="svd.triplet.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="tab.disjonctif">
+<param name="Local" value="tab.disjonctif.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="textual">
+<param name="Local" value="textual.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="wine">
+<param name="Local" value="wine.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="write.infile">
+<param name="Local" value="write.infile.html">
+</OBJECT>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Package FactoMineR:  Titles">
+</OBJECT>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Calculate the RV coefficient and test its significance">
+<param name="Local" value="coeffRV.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Categories description">
+<param name="Local" value="catdes.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Children (data)">
+<param name="Local" value="children.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Construct confidence ellipses">
+<param name="Local" value="coord.ellipse.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Correspondence Analysis (CA)">
+<param name="Local" value="CA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Dimension description">
+<param name="Local" value="dimdesc.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Draw an interactive General Procrustes Analysis (GPA) map">
+<param name="Local" value="plot.GPApartial.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Draw the Correspondance Analysis (CA) graphs">
+<param name="Local" value="plot.CA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Draw the General Procrustes Analysis (GPA) map">
+<param name="Local" value="plot.GPA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Draw the Hierarchical Multiple Factor Analysis (HMFA) graphs">
+<param name="Local" value="plot.HMFA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Draw the Multiple Correspondance Analysis (MCA) graphs">
+<param name="Local" value="plot.MCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Draw the Multiple Factor Analysis (MFA) graphs">
+<param name="Local" value="plot.MFA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Draw the Multiple Factor Analysis for Mixt Data graphs">
+<param name="Local" value="plot.AFDM.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Duale Multiple Factor Analysis (DMFA)">
+<param name="Local" value="DMFA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Generalised Procrustes Analysis">
+<param name="Local" value="gpa.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Hierarchical Multiple Factor Analysis">
+<param name="Local" value="HMFA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Make a disjonctif table">
+<param name="Local" value="tab.disjonctif.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Make graph of variables">
+<param name="Local" value="graph.var.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Make the Duale Multiple Factor Analysis (DMFA) graphs">
+<param name="Local" value="plot.DMFA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Make the Principal Component Analysis (PCA) graphs">
+<param name="Local" value="plot.PCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Multiple Correspondence Analysis (MCA)">
+<param name="Local" value="MCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Multiple Factor Analysis (MFA)">
+<param name="Local" value="MFA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Multiple Factor Analysis for Mixed Data">
+<param name="Local" value="AFDM.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Performance in decathlon (data)">
+<param name="Local" value="decathlon.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Plot an interactive Multiple Factor Analysis (MFA) graph">
+<param name="Local" value="plot.MFApartial.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Poison">
+<param name="Local" value="poison.text.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Principal Component Analysis (PCA)">
+<param name="Local" value="PCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Print in a file">
+<param name="Local" value="write.infile.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Print the Correspondance Analysis (CA) results">
+<param name="Local" value="print.CA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Print the Generalized Procrustes Analysis (GPA) results">
+<param name="Local" value="print.GPA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Print the Hierarchical Multiple Factor Analysis results">
+<param name="Local" value="print.HMFA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Print the Multiple Correspondance Analysis (MCA) results">
+<param name="Local" value="print.MCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Print the Multiple Factor Analysis of mixt Data (AFDM) results">
+<param name="Local" value="print.AFDM.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Print the Multiple Factor Analysis results">
+<param name="Local" value="print.MFA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Print the Principal Component Analysis (PCA) results">
+<param name="Local" value="print.PCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Scatter plot and additional variables with quality of representation contour lines">
+<param name="Local" value="prefpls.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Simulate by bootstrap">
+<param name="Local" value="simule.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Singular Value Decomposition of a Matrix">
+<param name="Local" value="svd.triplet.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Text mining">
+<param name="Local" value="textual.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Wine">
+<param name="Local" value="wine.html">
+</OBJECT>
+</UL>
+</UL>
+</BODY></HTML>

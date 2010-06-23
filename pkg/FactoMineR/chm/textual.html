@@ -1,0 +1,95 @@
+<html><head><title>Text mining</title>
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>textual(FactoMineR)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   textual">
+<param name="keyword" value=" Text mining">
+</object>
+
+
+<h2>Text mining</h2>
+
+
+<h3>Description</h3>
+
+<p>
+Calculates the number of occurence of each words and a contingence table
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+textual(tab, num.text, contingence.by=1:ncol(tab), 
+    maj.in.min = TRUE, sep.word=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>tab</code></td>
+<td>
+a data frame with one textual variable</td></tr>
+<tr valign="top"><td><code>num.text</code></td>
+<td>
+indice of the textual variable</td></tr>
+<tr valign="top"><td><code>contingence.by</code></td>
+<td>
+a list with the indices of the variables for which a contingence table is calculated by default a contingence
+table is calculated for all the variables (except the textual one). A contingence table can also be calculated for couple of variables.
+If <code>contingence.by</code> is equal to num.text, then the contingence table is calculated for each row of the data table</td></tr>
+<tr valign="top"><td><code>maj.in.min</code></td>
+<td>
+boolean, if TRUE majuscule are transformed in minuscule</td></tr>
+<tr valign="top"><td><code>sep.word</code></td>
+<td>
+a string with all the characters which correspond to separator of words (by default <code>sep.word = "; (),?./:'!$§=+\n;{}&lt;&gt;[]@-"</code>)</td></tr>
+</table>
+
+<h3>Value</h3>
+
+<p>
+Returns a list including:
+</p>
+<table summary="R argblock">
+<tr valign="top"><td><code>cont.table</code></td>
+<td>
+the contingence table with in rows the categories of the qualitative variables (or the couple of categories), and in column the words, 
+and in each cell the number of occurence</td></tr>
+<tr valign="top"><td><code>nb.words</code></td>
+<td>
+a data.frame with all the words and for each word, the number of lists in which it is present, and the number of occurence</td></tr>
+</table>
+
+<h3>Author(s)</h3>
+
+<p>
+François Husson <a href="mailto:François.Husson@agrocampus-rennes.fr">François.Husson@agrocampus-rennes.fr</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="CA.html">CA</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(poison.text)
+res.text &lt;- textual(poison.text, num.text = 3, contingence.by = c(1,2))
+## Contingence table for the sex variable, the sich variable and the couple
+## of variable sick-sex
+res.text2 &lt;- textual(poison.text, num.text = 3, contingence.by = list(1,2,c(1,2)))
+</pre>
+
+
+
+<hr><div align="center">[Package <em>FactoMineR</em> version 1.03 <a href="00Index.html">Index]</a></div>
+
+</body></html>

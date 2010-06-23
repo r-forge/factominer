@@ -1,0 +1,106 @@
+<html><head><title>Calculate the RV coefficient and test its significance</title>
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>coeffRV(FactoMineR)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   coeffRV">
+<param name="keyword" value=" Calculate the RV coefficient and test its significance">
+</object>
+
+
+<h2>Calculate the RV coefficient and test its significance</h2>
+
+
+<h3>Description</h3>
+
+<p>
+Calculate the RV coefficient and test its significance.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+coeffRV(X, Y)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+a matrix with <EM>n</EM> rows (individuals) and <EM>p</EM> numerous columns (variables)</td></tr>
+<tr valign="top"><td><code>Y</code></td>
+<td>
+a matrix with <EM>n</EM> rows (individuals) and <EM>p</EM> numerous columns (variables)</td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+Calculates the RV coefficient between <code>X</code> and <code>Y</code>. It returns also the standardized RV, 
+the expectation, the variance and the skewness under the permutation
+distribution. These moments are used to approximate the exact
+distribution of the RV statistic with the Pearson type III approximation and the p-value associated to this test is given.
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+A list containing the following components:
+</p>
+<table summary="R argblock">
+<tr valign="top"><td><code>RV</code></td>
+<td>
+the RV coefficient between the two matrices</td></tr>
+<tr valign="top"><td><code>RVs</code></td>
+<td>
+the standardized RV coefficients</td></tr>
+<tr valign="top"><td><code>mean</code></td>
+<td>
+the mean of the RV permutation distribution</td></tr>
+<tr valign="top"><td><code>variance</code></td>
+<td>
+the variance of the RV permutation distribution</td></tr>
+<tr valign="top"><td><code>skewness</code></td>
+<td>
+the skewness of the RV permutation distribution</td></tr>
+<tr valign="top"><td><code>p.value</code></td>
+<td>
+the p-value associated to the test of the significativity of the RV coefficient (with the Pearson type III approximation</td></tr>
+</table>
+
+<h3>Author(s)</h3>
+
+<p>
+Josse, J, Husson, F.
+</p>
+
+
+<h3>References</h3>
+
+<p>
+Escouffier, Y. (1973) <EM>Le traitement des variables vectorielles</EM>. Biometrics <B>29</B> 751&ndash;760.<br>
+Josse, J., Husson, F., Pag`es, J. (2007) <EM>Testing the significance of the RV coefficient</EM>. Aveiro, Portugal<br>
+Kazi-Aoual, F., Hitier, S., Sabatier, R., Lebreton, J.-D., (1995) Refined approximations to permutations tests 
+for multivariate inference. Computational Statistics and Data Analysis, <B>20</B>, 643&ndash;656 <br>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(wine)
+X &lt;- wine[,3:7]
+Y &lt;- wine[,11:20]
+coeffRV(X,Y)
+</pre>
+
+
+
+<hr><div align="center">[Package <em>FactoMineR</em> version 1.04 <a href="00Index.html">Index]</a></div>
+
+</body></html>

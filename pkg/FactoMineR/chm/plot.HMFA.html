@@ -1,0 +1,125 @@
+<html><head><title>Draw the Hierarchical Multiple Factor Analysis (HMFA) graphs</title>
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>plot.HMFA(FactoMineR)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   plot.HMFA">
+<param name="keyword" value=" Draw the Hierarchical Multiple Factor Analysis (HMFA) graphs">
+</object>
+
+
+<h2>Draw the Hierarchical Multiple Factor Analysis (HMFA) graphs</h2>
+
+
+<h3>Description</h3>
+
+<p>
+Draw the Hierarchical Multiple Factor Analysis (HMFA) graphs
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+plot.HMFA(x, axes = c(1,2),num=6, choix = "ind", 
+    lab.grpe = TRUE, lab.var = TRUE, lab.ind.moy = TRUE, 
+    invisible = NULL, lim.cos2.var = 0.1, 
+    xlim = NULL, ylim = NULL, cex = 1, title = NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+an object of class HMFA</td></tr>
+<tr valign="top"><td><code>axes</code></td>
+<td>
+a length 2 vector specifying the components to plot</td></tr>
+<tr valign="top"><td><code>num</code></td>
+<td>
+number of grpahs in a same windows</td></tr>
+<tr valign="top"><td><code>choix</code></td>
+<td>
+a string corresponding to the graph that you want to do ("ind" for the individual or qualitative
+variables graph, "var" for the quantitative variables graph, "axes" for the graph of the partial axes,
+"group" for the groups representation)</td></tr>
+<tr valign="top"><td><code>lab.grpe</code></td>
+<td>
+boolean, if TRUE, the label of the groups are drwan</td></tr>
+<tr valign="top"><td><code>lab.var</code></td>
+<td>
+boolean, if TRUE, the label of the variables are drwan</td></tr>
+<tr valign="top"><td><code>lab.ind.moy</code></td>
+<td>
+boolean, if TRUE, the label of the mean points are drwan</td></tr>
+<tr valign="top"><td><code>invisible</code></td>
+<td>
+list of string; for choix ="ind", the individuals can be omit (invisible = "ind"),
+or the centers of gravity of the qualitative variables 
+(invisible= "quali")</td></tr>
+<tr valign="top"><td><code>lim.cos2.var</code></td>
+<td>
+value of the square cosinus under with the points are not drawn</td></tr>
+<tr valign="top"><td><code>xlim</code></td>
+<td>
+range for the plotted 'x' values, defaulting to the range of the finite values of 'x'</td></tr>
+<tr valign="top"><td><code>ylim</code></td>
+<td>
+range for the plotted 'y' values, defaulting to the range of the finite values of 'y'</td></tr>
+<tr valign="top"><td><code>cex</code></td>
+<td>
+cf. function <code><a onclick="findlink('graphics', 'par.html')" style="text-decoration: underline; color: blue; cursor: hand">par</a></code> in the <STRONG>graphics</STRONG> package</td></tr>
+<tr valign="top"><td><code>title</code></td>
+<td>
+string corresponding to the title of the graph you draw (by default NULL and a title is chosen)</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+further arguments passed to or from other methods</td></tr>
+</table>
+
+<h3>Value</h3>
+
+<p>
+Returns the individuals factor map and the variables factor map.</p>
+
+<h3>Author(s)</h3>
+
+<p>
+Jérémy Mazet, François Husson <a href="mailto:François.Husson@agrocampus-rennes.fr">François.Husson@agrocampus-rennes.fr</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="HMFA.html">HMFA</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(wine)
+hierar &lt;- list(c(2,5,3,10,9,2), c(4,2))
+res.hmfa &lt;- HMFA(wine, H = hierar, type=c("n",rep("s",5)), graph = FALSE)
+plot(res.hmfa, invisible="quali")
+plot(res.hmfa, invisible="ind")
+</pre>
+
+<script Language="JScript">
+function findlink(pkg, fn) {
+var Y, link;
+Y = location.href.lastIndexOf("\\") + 1;
+link = location.href.substring(0, Y);
+link = link + "../../" + pkg + "/chtml/" + pkg + ".chm::/" + fn;
+location.href = link;
+}
+</script>
+
+
+<hr><div align="center">[Package <em>FactoMineR</em> version 1.00 <a href="00Index.html">Index]</a></div>
+
+</body></html>

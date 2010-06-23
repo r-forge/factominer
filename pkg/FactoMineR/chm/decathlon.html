@@ -1,0 +1,56 @@
+<html><head><title>Performance in decathlon (data)</title>
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>decathlon(FactoMineR)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   decathlon">
+<param name="keyword" value=" Performance in decathlon (data)">
+</object>
+
+
+<h2>Performance in decathlon (data)</h2>
+
+
+<h3>Description</h3>
+
+<p>
+The data used here refer to athletes' performance during two sporting events.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>data(decathlon)</pre>
+
+
+<h3>Format</h3>
+
+<p>
+A data frame with 41 rows and 13 columns: the first ten columns corresponds to 
+the performance of the athletes for the 10 events of the decathlon. 
+The columns 11 and 12 correspond respectively to the rank and the points obtained. 
+The last column is a qualitative variable
+corresponding to the sporting event (2004 Olympic Game or 2004 Decastar)
+</p>
+
+
+<h3>Source</h3>
+
+<p>
+Département de mathématiques appliquées, Agrocampus Rennes
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(decathlon)
+res.pca &lt;- PCA(decathlon, quanti.sup = 11:12, quali.sup=13)
+</pre>
+
+
+
+<hr><div align="center">[Package <em>FactoMineR</em> version 1.00 <a href="00Index.html">Index]</a></div>
+
+</body></html>

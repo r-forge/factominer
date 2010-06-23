@@ -1,0 +1,83 @@
+<html><head><title>Dimension description</title>
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>dimdesc(FactoMineR)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   dimdesc">
+<param name="keyword" value=" Dimension description">
+</object>
+
+
+<h2>Dimension description</h2>
+
+
+<h3>Description</h3>
+
+<p>
+This function is designed to point out the variables and the categories that are the most characteristic according 
+to each dimension obtained by a Factor Analysis. <br>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+dimdesc(res, axes = 1:3, proba = 0.05)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>res</code></td>
+<td>
+an object of class PCA, MCA, CA, MFA or HMFA</td></tr>
+<tr valign="top"><td><code>axes</code></td>
+<td>
+a vector with the dimensions to describe</td></tr>
+<tr valign="top"><td><code>proba</code></td>
+<td>
+the significance threshold considered to caracterized the dimension (by default 0.05)</td></tr>
+</table>
+
+<h3>Value</h3>
+
+<p>
+Returns a list including:
+</p>
+<table summary="R argblock">
+<tr valign="top"><td><code>quanti</code></td>
+<td>
+the description of the dimensions by the quantitative variables. The variables are sorted.</td></tr>
+<tr valign="top"><td><code>quali</code></td>
+<td>
+the description of the dimensions by the qualitative variables</td></tr>
+</table>
+
+<h3>Author(s)</h3>
+
+<p>
+François Husson <a href="mailto:François.Husson@agrocampus-rennes.fr">François.Husson@agrocampus-rennes.fr</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="PCA.html">PCA</a></code>, <code><a href="CA.html">CA</a></code>, <code><a href="MCA.html">MCA</a></code>, <code><a href="MFA.html">MFA</a></code>, <code><a href="HMFA.html">HMFA</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(decathlon)
+res.pca &lt;- PCA(decathlon, quanti.sup = 11:12, quali.sup=13, graph=FALSE)
+dimdesc(res.pca)
+</pre>
+
+
+
+<hr><div align="center">[Package <em>FactoMineR</em> version 1.02 <a href="00Index.html">Index]</a></div>
+
+</body></html>

@@ -1,0 +1,114 @@
+<html><head><title>Duale Multiple Factor Analysis (DMFA)</title>
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>DMFA(FactoMineR)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   DMFA">
+<param name="keyword" value=" Duale Multiple Factor Analysis (DMFA)">
+</object>
+
+
+<h2>Duale Multiple Factor Analysis (DMFA)</h2>
+
+
+<h3>Description</h3>
+
+<p>
+Performs Duale Multiple Factor Analysis (DMFA) with supplementary individuals, supplementary quantitative 
+variables and supplementary qualitative variables.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+DMFA(don, num.fact = ncol(data), scale.unit = TRUE, ncp = 5, 
+    quanti.sup = NULL, quali.sup = NULL, graph = TRUE, axes=c(1,2))</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>don</code></td>
+<td>
+a data frame with <EM>n</EM> rows (individuals) and <EM>p</EM> columns (numeric variables)</td></tr>
+<tr valign="top"><td><code>num.fact</code></td>
+<td>
+the number of the qualitative variable which allows to make the group of individuals</td></tr>
+<tr valign="top"><td><code>scale.unit</code></td>
+<td>
+a boolean, if TRUE (value set by default) then data are scaled to unit variance</td></tr>
+<tr valign="top"><td><code>ncp</code></td>
+<td>
+number of dimensions kept in the results (by default 5)</td></tr>
+<tr valign="top"><td><code>quanti.sup</code></td>
+<td>
+a vector indicating the indexes of the quantitative supplementary variables</td></tr>
+<tr valign="top"><td><code>quali.sup</code></td>
+<td>
+a vector indicating the indexes of the qualitative supplementary variables</td></tr>
+<tr valign="top"><td><code>graph</code></td>
+<td>
+boolean, if TRUE a graph is displayed</td></tr>
+<tr valign="top"><td><code>axes</code></td>
+<td>
+a length 2 vector specifying the components to plot</td></tr>
+</table>
+
+<h3>Value</h3>
+
+<p>
+Returns a list including:
+</p>
+<table summary="R argblock">
+<tr valign="top"><td><code>eig</code></td>
+<td>
+a numeric vector containing all the eigenvalues</td></tr>
+<tr valign="top"><td><code>var</code></td>
+<td>
+a list of matrices containing all the results for the active variables (coordinates, correlation between variables and axes, square cosine, contributions)</td></tr>
+<tr valign="top"><td><code>ind</code></td>
+<td>
+a list of matrices containing all the results for the active individuals (coordinates, square cosine, contributions)</td></tr>
+<tr valign="top"><td><code>ind.sup</code></td>
+<td>
+a list of matrices containing all the results for the supplementary individuals (coordinates, square cosine)</td></tr>
+<tr valign="top"><td><code>quanti.sup</code></td>
+<td>
+a list of matrices containing all the results for the supplementary quantitative variables (coordinates, correlation between variables and axes)</td></tr>
+<tr valign="top"><td><code>quali.sup</code></td>
+<td>
+a list of matrices containing all the results for the supplementary qualitative variables (coordinates of each categories of each variables, and v.test which is a criterion with a Normal distribution)</td></tr>
+</table>
+<p>
+
+<br>
+Returns the individuals factor map and the variables factor map.</p>
+
+<h3>Author(s)</h3>
+
+<p>
+Sébastien Lê, François Husson <a href="mailto:François.Husson@agrocampus-rennes.fr">François.Husson@agrocampus-rennes.fr</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="plot.DMFA.html">plot.DMFA</a></code>, <code><a href="dimdesc.html">dimdesc</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Example with the famous Fisher's iris data
+res.dmfa = DMFA ( iris, num.fact = 5)
+</pre>
+
+
+
+<hr><div align="center">[Package <em>FactoMineR</em> version 1.03 <a href="00Index.html">Index]</a></div>
+
+</body></html>

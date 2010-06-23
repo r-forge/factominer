@@ -1,0 +1,116 @@
+<html><head><title>Draw the Correspondance Analysis (CA) graphs</title>
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>plot.CA(FactoMineR)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   plot.CA">
+<param name="keyword" value=" Draw the Correspondance Analysis (CA) graphs">
+</object>
+
+
+<h2>Draw the Correspondance Analysis (CA) graphs</h2>
+
+
+<h3>Description</h3>
+
+<p>
+Draw the Correspondance Analysis (CA) graphs.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+plot.CA(x, axes = c(1, 2),
+    xlim = NULL, ylim = NULL, invisible = NULL, col.row = "blue",
+    col.col = "red", col.row.sup = "darkblue", 
+    col.col.sup = "darkred", label = "all", cex = 1, 
+    title = NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+an object of class CA</td></tr>
+<tr valign="top"><td><code>axes</code></td>
+<td>
+a length 2 vector specifying the components to plot</td></tr>
+<tr valign="top"><td><code>xlim</code></td>
+<td>
+range for the plotted 'x' values, defaulting to the range of the finite values of 'x'</td></tr>
+<tr valign="top"><td><code>ylim</code></td>
+<td>
+range for the plotted 'y' values, defaulting to the range of the finite values of 'y'</td></tr>
+<tr valign="top"><td><code>invisible</code></td>
+<td>
+string indicating if some points should be unlabelled ("row", "col", "row.sup", "col.sup")</td></tr>
+<tr valign="top"><td><code>col.row</code></td>
+<td>
+a color for the rows points</td></tr>
+<tr valign="top"><td><code>col.col</code></td>
+<td>
+a color for columns points</td></tr>
+<tr valign="top"><td><code>col.row.sup</code></td>
+<td>
+a color for the supplementary rows points</td></tr>
+<tr valign="top"><td><code>col.col.sup</code></td>
+<td>
+a color for supplementary columns points</td></tr>
+<tr valign="top"><td><code>label</code></td>
+<td>
+a list of character for the elements which are labelled (by default, all the elements are labelled ("row", "row.sup", "col", "col.sup"</td></tr>
+<tr valign="top"><td><code>cex</code></td>
+<td>
+cf. function <code><a onclick="findlink('graphics', 'par.html')" style="text-decoration: underline; color: blue; cursor: hand">par</a></code> in the <STRONG>graphics</STRONG> package</td></tr>
+<tr valign="top"><td><code>title</code></td>
+<td>
+string corresponding to the title of the graph you draw (by default NULL and a title is chosen)</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+further arguments passed to or from other methods</td></tr>
+</table>
+
+<h3>Value</h3>
+
+<p>
+Returns the individuals factor map and the variables factor map.</p>
+
+<h3>Author(s)</h3>
+
+<p>
+Jérémy Mazet, François Husson <a href="mailto:François.Husson@agrocampus-rennes.fr">François.Husson@agrocampus-rennes.fr</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="CA.html">CA</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(children)
+res.ca &lt;- CA (children, col.sup = 6:8, row.sup = 15:18)
+</pre>
+
+<script Language="JScript">
+function findlink(pkg, fn) {
+var Y, link;
+Y = location.href.lastIndexOf("\\") + 1;
+link = location.href.substring(0, Y);
+link = link + "../../" + pkg + "/chtml/" + pkg + ".chm::/" + fn;
+location.href = link;
+}
+</script>
+
+
+<hr><div align="center">[Package <em>FactoMineR</em> version 1.03 <a href="00Index.html">Index]</a></div>
+
+</body></html>

@@ -1,0 +1,43 @@
+\name{catdes}
+
+\alias{catdes}
+
+\title{Categories description}
+
+\description{
+Description of the categories of one factor by categorical variables and/or by quantitative variables
+}
+
+\usage{
+catdes(donnee,num.var,proba = 0.05)}
+
+\arguments{
+  \item{donnee}{a data frame made up of at least one categorical variables and a set of quantitative variables and/or categorical variables}
+  \item{num.var}{the indice of the variable to characterized}
+  \item{proba}{the significance threshold considered to characterized the category (by default 0.05)}
+}
+
+\value{
+Returns a list including:
+  \item{test.chi}{The categorical variables which characterized the factor are listed in ascending order (from the one which characterized the most
+  the factor to the one which significantly characterized with the proba \code{proba}}
+  \item{category}{description of each category of the \code{num.var} by each category of all the categorical variables}
+  \item{quanti}{the description of each category of the \code{num.var} variable by the quantitative variables.}
+}
+
+\author{Francois Husson \email{Francois.Husson@agrocampus-ouest.fr}}
+
+
+\seealso{ \code{\link{plot.catdes}},\code{\link{condes}}}
+
+\references{
+Lebart, L., Morineau, A. and Piron, M. (1995)
+Statistique exploratoire multidimensionnelle, \emph{Dunod}.
+}
+
+\examples{
+data(wine)
+catdes(wine, num.var=2)
+}
+
+\keyword{multivariate}

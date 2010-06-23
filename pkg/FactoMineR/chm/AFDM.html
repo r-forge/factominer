@@ -1,0 +1,122 @@
+<html><head><title>Multiple Factor Analysis for Mixed Data</title>
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>AFDM(FactoMineR)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   AFDM">
+<param name="keyword" value=" Multiple Factor Analysis for Mixed Data">
+</object>
+
+
+<h2>Multiple Factor Analysis for Mixed Data</h2>
+
+
+<h3>Description</h3>
+
+<p>
+Performs Multiple Factor Analysis with both quantitative and qualitative data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+AFDM (base, type, ncp = 5, graph = TRUE, sup.var = NULL, 
+    ind.sup = NULL, axes = c(1,2))
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>base</code></td>
+<td>
+a data frame with <EM>n</EM> rows (individuals) and <EM>p</EM> columns</td></tr>
+<tr valign="top"><td><code>type</code></td>
+<td>
+a vector indicating the type of each variable (the length of <code>type</code> must be equal 
+to the number of columns of X</td></tr>
+<tr valign="top"><td><code>ncp</code></td>
+<td>
+number of dimensions kept in the results (by default 5)</td></tr>
+<tr valign="top"><td><code>graph</code></td>
+<td>
+boolean, if TRUE a graph is displayed</td></tr>
+<tr valign="top"><td><code>ind.sup</code></td>
+<td>
+a vector indicating the indexes of the supplementary individuals</td></tr>
+<tr valign="top"><td><code>sup.var</code></td>
+<td>
+a vector indicating the indexes of the supplementary variables</td></tr>
+<tr valign="top"><td><code>axes</code></td>
+<td>
+a length 2 vector specifying the components to plot</td></tr>
+</table>
+
+<h3>Value</h3>
+
+<p>
+Returns a list including:
+</p>
+<table summary="R argblock">
+<tr valign="top"><td><code>eig</code></td>
+<td>
+a numeric vector containing all the eigenvalues</td></tr>
+<tr valign="top"><td><code>link.group</code></td>
+<td>
+</td></tr>
+<tr valign="top"><td><code>group</code></td>
+<td>
+</td></tr>
+<tr valign="top"><td><code>ind</code></td>
+<td>
+a list of matrices with all the results for the individuals (coordinates, square cosine, contributions)</td></tr>
+<tr valign="top"><td><code>quali.var</code></td>
+<td>
+a list of matrices with all the results for the qualitative variables (coordinates, square cosine, contributions, v.test)</td></tr>
+<tr valign="top"><td><code>quanti.var</code></td>
+<td>
+a list of matrices with all the results for the quantitative variables (coordinates, correlation, square cosine, contributions)</td></tr>
+<tr valign="top"><td><code>call</code></td>
+<td>
+a list with some statistics</td></tr>
+</table>
+<p>
+
+<br>
+Returns the individuals factor map.</p>
+
+<h3>Author(s)</h3>
+
+<p>
+Jérémy Mazet, François Husson <a href="mailto:François.Husson@agrocampus-rennes.fr">François.Husson@agrocampus-rennes.fr</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>
+Pagès J. (2004). Analyse factorielle de données mixtes. Revue Statistique Appliquée.  LII (4). pp. 93-111.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="print.AFDM.html">print.AFDM</a></code>, <code><a href="plot.AFDM.html">plot.AFDM</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(wine)
+res.afdm = AFDM(wine[,c(1,2,30,31)],type=c("n","n","s","s"))
+</pre>
+
+
+
+<hr><div align="center">[Package <em>FactoMineR</em> version 1.02 <a href="00Index.html">Index]</a></div>
+
+</body></html>

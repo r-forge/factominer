@@ -1,0 +1,123 @@
+<html><head><title>Principal Component Analysis (PCA)</title>
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>PCA(FactoMineR)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   PCA">
+<param name="keyword" value=" Principal Component Analysis (PCA)">
+</object>
+
+
+<h2>Principal Component Analysis (PCA)</h2>
+
+
+<h3>Description</h3>
+
+<p>
+Performs Principal Component Analysis (PCA) with supplementary individuals, supplementary quantitative 
+variables and supplementary qualitative variables.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+PCA(X, scale.unit = TRUE, ncp = 5, ind.sup = NULL, 
+    quanti.sup = NULL, quali.sup = NULL, row.w = NULL, 
+    col.w = NULL, graph = TRUE, axes = c(1,2))</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+a data frame with <EM>n</EM> rows (individuals) and <EM>p</EM> columns (numeric variables)</td></tr>
+<tr valign="top"><td><code>ncp</code></td>
+<td>
+number of dimensions kept in the results (by default 5)</td></tr>
+<tr valign="top"><td><code>scale.unit</code></td>
+<td>
+a boolean, if TRUE (value set by default) then data are scaled to unit variance</td></tr>
+<tr valign="top"><td><code>ind.sup</code></td>
+<td>
+a vector indicating the indexes of the supplementary individuals</td></tr>
+<tr valign="top"><td><code>quanti.sup</code></td>
+<td>
+a vector indicating the indexes of the quantitative supplementary variables</td></tr>
+<tr valign="top"><td><code>quali.sup</code></td>
+<td>
+a vector indicating the indexes of the qualitative supplementary variables</td></tr>
+<tr valign="top"><td><code>row.w</code></td>
+<td>
+an optional row weights (by default, uniform row weights)</td></tr>
+<tr valign="top"><td><code>col.w</code></td>
+<td>
+an optional column weights (by default, uniform column weights)</td></tr>
+<tr valign="top"><td><code>graph</code></td>
+<td>
+boolean, if TRUE a graph is displayed</td></tr>
+<tr valign="top"><td><code>axes</code></td>
+<td>
+a length 2 vector specifying the components to plot</td></tr>
+</table>
+
+<h3>Value</h3>
+
+<p>
+Returns a list including:
+</p>
+<table summary="R argblock">
+<tr valign="top"><td><code>eig</code></td>
+<td>
+a numeric vector containing all the eigenvalues</td></tr>
+<tr valign="top"><td><code>var</code></td>
+<td>
+a list of matrices containing all the results for the active variables (coordinates, correlation between variables and axes, square cosine, contributions)</td></tr>
+<tr valign="top"><td><code>ind</code></td>
+<td>
+a list of matrices containing all the results for the active individuals (coordinates, square cosine, contributions)</td></tr>
+<tr valign="top"><td><code>ind.sup</code></td>
+<td>
+a list of matrices containing all the results for the supplementary individuals (coordinates, square cosine)</td></tr>
+<tr valign="top"><td><code>quanti.sup</code></td>
+<td>
+a list of matrices containing all the results for the supplementary quantitative variables (coordinates, correlation between variables and axes)</td></tr>
+<tr valign="top"><td><code>quali.sup</code></td>
+<td>
+a list of matrices containing all the results for the supplementary qualitative variables (coordinates of each categories of each variables, and v.test which is a criterion with a Normal distribution)</td></tr>
+</table>
+<p>
+
+<br>
+Returns the individuals factor map and the variables factor map.</p>
+
+<h3>Author(s)</h3>
+
+<p>
+Jérémy Mazet, François Husson <a href="mailto:François.Husson@agrocampus-rennes.fr">François.Husson@agrocampus-rennes.fr</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="print.PCA.html">print.PCA</a></code>, <code><a href="plot.PCA.html">plot.PCA</a></code>, <code><a href="dimdesc.html">dimdesc</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+data(decathlon)
+res.pca &lt;- PCA(decathlon, quanti.sup = 11:12, quali.sup=13)
+plot(res.pca,choix="ind",habillage=13)
+dimdesc(res.pca, axes = 1:2)
+</pre>
+
+
+
+<hr><div align="center">[Package <em>FactoMineR</em> version 1.03 <a href="00Index.html">Index]</a></div>
+
+</body></html>

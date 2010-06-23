@@ -1,0 +1,91 @@
+<html><head><title>Categories description</title>
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>catdes(FactoMineR)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   catdes">
+<param name="keyword" value=" Categories description">
+</object>
+
+
+<h2>Categories description</h2>
+
+
+<h3>Description</h3>
+
+<p>
+Description of the categories of one factor by qualitative variables and/or by quantitative variables
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+catdes(donnee,num.var,proba = 0.05)</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>donnee</code></td>
+<td>
+a data frame made up of at least one qualitative variables and a set of quantitative variables (sensory descriptors)</td></tr>
+<tr valign="top"><td><code>num.var</code></td>
+<td>
+the indice of the variable to caracterized</td></tr>
+<tr valign="top"><td><code>proba</code></td>
+<td>
+the significance threshold considered to caracterized the category (by default 0.05)</td></tr>
+</table>
+
+<h3>Value</h3>
+
+<p>
+Returns a list including:
+</p>
+<table summary="R argblock">
+<tr valign="top"><td><code>test.chi</code></td>
+<td>
+The qualitative variables which characterized the factor are listed in ascending order (from the one which characterized the most
+the factor to the one which significantly characterized with the proba <code>proba</code></td></tr>
+<tr valign="top"><td><code>category</code></td>
+<td>
+description of the each category of the <code>num.var</code> by each category of all the qualitative variables</td></tr>
+<tr valign="top"><td><code>quanti</code></td>
+<td>
+the description of the each category of the <code>num.var</code> variable by the quantitative variables.</td></tr>
+</table>
+
+<h3>Author(s)</h3>
+
+<p>
+François Husson <a href="mailto:François.Husson@agrocampus-rennes.fr">François.Husson@agrocampus-rennes.fr</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>
+Lebart, L., Morineau, A. and Piron, M. (1995)
+Statistique exploratoire multidimensionnelle, <EM>Dunod</EM>.
+</p>
+
+
+<h3>See Also</h3>
+
+
+
+
+<h3>Examples</h3>
+
+<pre>
+data(wine)
+catdes(wine, num.var=2)
+</pre>
+
+
+
+<hr><div align="center">[Package <em>FactoMineR</em> version 1.03 <a href="00Index.html">Index]</a></div>
+
+</body></html>

@@ -1,0 +1,78 @@
+<html><head><title>Singular Value Decomposition of a Matrix</title>
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>svd.triplet(FactoMineR)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   svd.triplet">
+<param name="keyword" value=" Singular Value Decomposition of a Matrix">
+</object>
+
+
+<h2>Singular Value Decomposition of a Matrix</h2>
+
+
+<h3>Description</h3>
+
+<p>
+Compute the singular-value decomposition of a rectangular matrix with weights for rows and columns.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+svd.triplet(X, Pl=NULL, Pc=NULL)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>X</code></td>
+<td>
+a data matrix</td></tr>
+<tr valign="top"><td><code>Pl</code></td>
+<td>
+vector with the weights of each row (NULL by default and the weights are uniform)</td></tr>
+<tr valign="top"><td><code>Pc</code></td>
+<td>
+vector with the weights of each column (NULL by default and the weights are uniform)</td></tr>
+</table>
+
+<h3>Value</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>d</code></td>
+<td>
+a vector containing the singular values of 'x';</td></tr>
+<tr valign="top"><td><code>u</code></td>
+<td>
+</td></tr>
+<tr valign="top"><td><code>v</code></td>
+<td>
+</td></tr>
+</table>
+<p>
+ {a matrix whose columns contain the right singular vectors of 'x'.}</p>
+
+<h3>See Also</h3>
+
+<p>
+<code><a onclick="findlink('base', 'svd.html')" style="text-decoration: underline; color: blue; cursor: hand">svd</a></code>
+</p>
+
+<script Language="JScript">
+function findlink(pkg, fn) {
+var Y, link;
+Y = location.href.lastIndexOf("\\") + 1;
+link = location.href.substring(0, Y);
+link = link + "../../" + pkg + "/chtml/" + pkg + ".chm::/" + fn;
+location.href = link;
+}
+</script>
+
+
+<hr><div align="center">[Package <em>FactoMineR</em> version 1.00 <a href="00Index.html">Index]</a></div>
+
+</body></html>

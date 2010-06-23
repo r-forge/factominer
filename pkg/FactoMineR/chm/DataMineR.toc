@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HEAD></HEAD><HTML><BODY>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Package DataMineR:  Contents">
+<param name="Local" value="00Index.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Package DataMineR:  R objects">
+</OBJECT>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="afdm">
+<param name="Local" value="afdm.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="CA">
+<param name="Local" value="CA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="decathlon">
+<param name="Local" value="decathlon.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="gpa">
+<param name="Local" value="gpa.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="MCA">
+<param name="Local" value="MCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="MFA">
+<param name="Local" value="MFA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="PCA">
+<param name="Local" value="PCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="plot.afdm">
+<param name="Local" value="plot.afdm.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="plot.CA">
+<param name="Local" value="plot.CA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="plot.MCA">
+<param name="Local" value="plot.MCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="plot.PCA">
+<param name="Local" value="plot.PCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="print.afdm">
+<param name="Local" value="print.afdm.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="print.CA">
+<param name="Local" value="print.CA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="print.MCA">
+<param name="Local" value="print.MCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="print.PCA">
+<param name="Local" value="print.PCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="svd.triplet">
+<param name="Local" value="svd.triplet.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="tab.disjonctif">
+<param name="Local" value="tab.disjonctif.html">
+</OBJECT>
+</UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Package DataMineR:  Titles">
+</OBJECT>
+<UL>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Correspondance Analysis (CA)">
+<param name="Local" value="CA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Draw the Correspondance Analysis (CA) graphs">
+<param name="Local" value="plot.CA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Draw the Multiple Correspondance Analysis (CA) graphs">
+<param name="Local" value="plot.MCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Draw the Multiple Factor Analysis for Mixt Data graphs">
+<param name="Local" value="plot.afdm.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Generalised Procrustes Analysis">
+<param name="Local" value="gpa.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Make a disjonctif table">
+<param name="Local" value="tab.disjonctif.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Make the Principal Component Analysis (PCA) graphs">
+<param name="Local" value="plot.PCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Multiple Correspondance Analysis (MCA)">
+<param name="Local" value="MCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Multiple Factor Analysis (MFA)">
+<param name="Local" value="MFA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Multiple Factor Analysis fo Mixt Data">
+<param name="Local" value="afdm.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Performance in decathlon (data)">
+<param name="Local" value="decathlon.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Principal Component Analysis (PCA)">
+<param name="Local" value="PCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Print the Correspondance Analysis (CA) results">
+<param name="Local" value="print.CA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Print the Multiple Correspondance Analysis (MCA) results">
+<param name="Local" value="print.MCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Print the Multiple Factor Analysis of mixt Data (afdm) results">
+<param name="Local" value="print.afdm.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Print the Principal Component Analysis (PCA) results">
+<param name="Local" value="print.PCA.html">
+</OBJECT>
+<LI> <OBJECT type="text/sitemap">
+<param name="Name" value="Singular Value Decomposition of a Matrix">
+<param name="Local" value="svd.triplet.html">
+</OBJECT>
+</UL>
+</UL>
+</BODY></HTML>

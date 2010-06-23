@@ -1,0 +1,82 @@
+<html><head><title>Make the Duale Multiple Factor Analysis (DMFA) graphs</title>
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>plot.DMFA(FactoMineR)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   plot.DMFA">
+<param name="keyword" value=" Make the Duale Multiple Factor Analysis (DMFA) graphs">
+</object>
+
+
+<h2>Make the Duale Multiple Factor Analysis (DMFA) graphs</h2>
+
+
+<h3>Description</h3>
+
+<p>
+Plot the graphs for a Principal Component Analysis (DMFA) with supplementary individuals, supplementary quantitative 
+variables and supplementary qualitative variables.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+plot.DMFA(x, axes = c(1, 2), choix = "ind", label="all",
+    invisible = NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+an object of class DMFA</td></tr>
+<tr valign="top"><td><code>axes</code></td>
+<td>
+a length 2 vector specifying the components to plot</td></tr>
+<tr valign="top"><td><code>choix</code></td>
+<td>
+the graph to plot ("ind" for the individuals, "var" for the variables)</td></tr>
+<tr valign="top"><td><code>label</code></td>
+<td>
+a list of character for the elements which are labelled (by default, all the elements are labelled ("ind", ind.sup", "quali", "var", "quanti.sup"</td></tr>
+<tr valign="top"><td><code>invisible</code></td>
+<td>
+string indicating if some points should not be drawn ("ind" or "quali")</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+further arguments passed to or from other methods</td></tr>
+</table>
+
+<h3>Value</h3>
+
+<p>
+Returns the individuals factor map and the variables factor map, the partial variables representation and the groups factor map.</p>
+
+<h3>Author(s)</h3>
+
+<p>
+Sébastien Lê, François Husson <a href="mailto:François.Husson@agrocampus-rennes.fr">François.Husson@agrocampus-rennes.fr</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="DMFA.html">DMFA</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+</pre>
+
+
+
+<hr><div align="center">[Package <em>FactoMineR</em> version 1.02 <a href="00Index.html">Index]</a></div>
+
+</body></html>

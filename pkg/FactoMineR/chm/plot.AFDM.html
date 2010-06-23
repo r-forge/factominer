@@ -1,0 +1,122 @@
+<html><head><title>Draw the Multiple Factor Analysis for Mixt Data graphs</title>
+<link rel="stylesheet" type="text/css" href="Rchm.css">
+</head>
+<body>
+
+<table width="100%"><tr><td>plot.AFDM(FactoMineR)</td><td align="right">R Documentation</td></tr></table><object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+<param name="keyword" value="R:   plot.AFDM">
+<param name="keyword" value=" Draw the Multiple Factor Analysis for Mixt Data graphs">
+</object>
+
+
+<h2>Draw the Multiple Factor Analysis for Mixt Data graphs</h2>
+
+
+<h3>Description</h3>
+
+<p>
+Draw the Multiple Factor Analysis for Mixt Data graphs.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+## S3 method for class 'AFDM':
+plot(x, choix = "group", axes = c(1, 2), lab.grpe = TRUE,
+    lab.var = TRUE, lab.ind = TRUE, habillage = "none", col.lab = FALSE,
+    col.hab = NULL, invisible = NULL, lim.cos2.var = 0.1, xlim = NULL,
+    ylim = NULL, cex = 1, title = NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+an object of class AFDM</td></tr>
+<tr valign="top"><td><code>choix</code></td>
+<td>
+a string corresponding to the graph that you want to do ("ind" for the individual or qualitative
+variables graph, "group" for all the variables (quantitative and qualitative), "var" for the correlation circle)</td></tr>
+<tr valign="top"><td><code>axes</code></td>
+<td>
+a length 2 vector specifying the components to plot</td></tr>
+<tr valign="top"><td><code>lab.grpe</code></td>
+<td>
+boolean, if TRUE, the label of the groups are drwan</td></tr>
+<tr valign="top"><td><code>lab.var</code></td>
+<td>
+boolean indicating if the labelled of the variables should be drawn on the map</td></tr>
+<tr valign="top"><td><code>lab.ind</code></td>
+<td>
+boolean indicating if the labelled of the individuals should be drawn on the map</td></tr>
+<tr valign="top"><td><code>habillage</code></td>
+<td>
+string corresponding to the color which are used. If "ind", one color is used for each individual else if it is the name 
+or the position of a qualitative variable, it colors 
+according to the different categories of this variable</td></tr>
+<tr valign="top"><td><code>col.lab</code></td>
+<td>
+boolean indicating if the labelled should be colored</td></tr>
+<tr valign="top"><td><code>col.hab</code></td>
+<td>
+vector indicating the colors to use to labelled the rows or columns elements chosen in habillage</td></tr>
+<tr valign="top"><td><code>invisible</code></td>
+<td>
+list of string; for choix ="ind", the individuals can be omit (invisible = "ind"),
+or supplementary individuals (invisible="ind.sup") or the centerg of gravity of the qualitative variables 
+(invisible= "quali"); if invisible = c("ind","ind.sup"), just the centers of gravity are drawn</td></tr>
+<tr valign="top"><td><code>lim.cos2.var</code></td>
+<td>
+value of the square cosinus under the variables are not drawn</td></tr>
+<tr valign="top"><td><code>xlim</code></td>
+<td>
+range for the plotted 'x' values, defaulting to the range of the finite values of 'x'</td></tr>
+<tr valign="top"><td><code>ylim</code></td>
+<td>
+range for the plotted 'y' values, defaulting to the range of the finite values of 'y'</td></tr>
+<tr valign="top"><td><code>cex</code></td>
+<td>
+cf. function <code><a onclick="findlink('graphics', 'par.html')" style="text-decoration: underline; color: blue; cursor: hand">par</a></code> in the <STRONG>graphics</STRONG> package</td></tr>
+<tr valign="top"><td><code>title</code></td>
+<td>
+string corresponding to the title of the graph you draw (by default NULL and a title is chosen)</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+further arguments passed to or from other methods</td></tr>
+</table>
+
+<h3>Value</h3>
+
+<p>
+Returns the individuals factor map and the variables factor map.</p>
+
+<h3>Author(s)</h3>
+
+<p>
+Jérémy Mazet, François Husson <a href="mailto:François.Husson@agrocampus-rennes.fr">François.Husson@agrocampus-rennes.fr</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="AFDM.html">AFDM</a></code>
+</p>
+
+<script Language="JScript">
+function findlink(pkg, fn) {
+var Y, link;
+Y = location.href.lastIndexOf("\\") + 1;
+link = location.href.substring(0, Y);
+link = link + "../../" + pkg + "/chtml/" + pkg + ".chm::/" + fn;
+location.href = link;
+}
+</script>
+
+
+<hr><div align="center">[Package <em>FactoMineR</em> version 1.04 <a href="00Index.html">Index]</a></div>
+
+</body></html>
