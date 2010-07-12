@@ -21,7 +21,7 @@ dimdesc=function (res, axes = 1:3, proba = 0.05)
         ind.supp = res$call$ind.sup
         result = structure(vector(mode = "list", length = length(axes)), 
             names = colnames(res$ind$coord)[axes])
-        for (k in length(axes)) {
+        for (k in 1:length(axes)) {
             if (!is.null(ind.supp)) 
                 tableau = cbind.data.frame(res$ind$coord[, axes[k]], 
                   res$call$X[-ind.supp, ])
