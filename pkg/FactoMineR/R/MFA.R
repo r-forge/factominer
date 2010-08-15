@@ -94,7 +94,7 @@ if (is.null(weight.col.mfa)) weight.col.mfa <- rep(1,length(ponderation))
 #            poids.tmp <- (nb.actif - poids.tmp)/nb.actif
 #            ponderation[(ind.grpe.mod + 1):(ind.grpe.mod + group.mod[g])] <- poids.tmp/(res.separe[[g]]$eig[1,1] * group[g])
             tmp <- sweep(tmp,1,row.w.moy.ec/sum(row.w.moy.ec),FUN="*")
-            poids.tmp <- apply(tmp, 2, sum)
+            poids.tmp <- 1-apply(tmp, 2, sum)
             ponderation[(ind.grpe.mod + 1):(ind.grpe.mod + group.mod[g])] <- poids.tmp/(res.separe[[g]]$eig[1,1] * group[g])
             centre.tmp <- apply(tmp, 2, moy.p, row.w.moy.ec)
             tmp <- as.matrix(sweep(tmp, 2, centre.tmp, FUN = "-"))
