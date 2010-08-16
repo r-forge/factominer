@@ -1,6 +1,6 @@
 Package: FactoMineR
-Version: 1.14
-Date: 2010-29-04
+Version: 1.15
+Date: 2010-16-08
 Title: Multivariate Exploratory Data Analysis and Data Mining with R
 Author: Francois Husson, Julie Josse, Sebastien Le, Jeremy Mazet
 Maintainer: Francois Husson <francois.husson@agrocampus-ouest.fr>
