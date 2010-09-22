@@ -20,7 +20,7 @@ for (q in max(ncp.min,1):ncp.max){
       sol2 = sweep(zz,2,1-diag(b),FUN="/")
       crit=c(crit,mean(sol2^2))
     }    
-    if (method=="gcv") crit=c(crit,mean(( (n*p-sum(is.na(X)))*(X-rec)/ (n*p-sum(is.na(X))- q*(n+p-q)))^2,na.rm=T))
+    if (method=="gcv") crit=c(crit,mean(( (n*p)*(X-rec)/ (n*p- q*(n+p-q)))^2,na.rm=T))
   }
   if (any(diff(crit)>0)) { ncp = which(diff(crit)>0)[1]
   } else ncp <- which.min(crit)
