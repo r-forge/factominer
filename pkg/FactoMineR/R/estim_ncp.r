@@ -2,13 +2,25 @@ estim_ncp <- function(X, ncp.min=0,ncp.max=NULL, scale=TRUE,method="Smooth"){
 
 ## Pas de NA dans X
 method <- tolower(method)
+
+### For categorical variables
+pquali <- 0
+if (!is.numeric(X[,1])){
+    pquali <- ncol(X)
+    tab.disj <- tab.disjonctif(X)
+    X <- scale(tab.disj)*sqrt(nrow(X)/(nrow(X)-1))/sqrt(ncol(X))
+    ponder <- 1-apply(tab.disj/nrow(X), 2, sum)
+    X <- sweep(X,2,sqrt(ponder),FUN="*")
+    scale = FALSE
+}
+
 p=ncol(X)
 n=nrow(X)
 if (is.null(ncp.max)) ncp.max <- ncol(X)-1
 ncp.max <- min(nrow(X)-2,ncol(X)-1,ncp.max)
 crit <- NULL
 
-##res.pca = PCA(X,scale=scale,graph=FALSE,ncp=ncp.max)
+
 X=scale(X,scale=FALSE)
 
 if (scale){
@@ -37,7 +49,8 @@ for (q in max(ncp.min,1):ncp.max){
       sol = sweep(zz,2,1-b,FUN="/")
       crit=c(crit,mean(sol^2))
     }    
-    if (method=="gcv") crit=c(crit,mean(( (n*p)*(X-rec)/ (n*p- q*(n+p-q)))^2,na.rm=T))
+##    if (method=="gcv") crit=c(crit,mean(( (n*p)*(X-rec)/ (n*p- q*(n+p-q)))^2,na.rm=T))
+    if (method=="gcv") crit=c(crit,mean(( (n*(p-pquali))*(X-rec)/ (n*(p-pquali)- q*(n+p-pquali-q)))^2,na.rm=T))
   }
   if (any(diff(crit)>0)) { ncp = which(diff(crit)>0)[1]
   } else ncp <- which.min(crit)
