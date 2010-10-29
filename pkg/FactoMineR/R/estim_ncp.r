@@ -7,18 +7,35 @@ n=nrow(X)
 if (is.null(ncp.max)) ncp.max <- ncol(X)-1
 ncp.max <- min(nrow(X)-2,ncol(X)-1,ncp.max)
 crit <- NULL
-if (ncp.min==0) crit = mean((X-rep(colMeans(X,na.rm=TRUE),each=nrow(X)))^2,na.rm=TRUE)
+
+##res.pca = PCA(X,scale=scale,graph=FALSE,ncp=ncp.max)
+X=scale(X,scale=FALSE)
+
+if (scale){
+ et = apply(X,2,sd)
+ X = sweep(X,2,et,FUN="/")
+}
+if (ncp.min==0)  crit = mean(X^2, na.rm = TRUE)*nrow(X)/(nrow(X)-1)
+
+rr = svd(X,nu=ncp.max,nv=ncp.max)
+
 for (q in max(ncp.min,1):ncp.max){
-    res.pca = PCA(X,scale=scale,graph=FALSE,ncp=max(q,2))
-    rec = reconst(res.pca,ncp=q)
+    if (q>1) rec = as.matrix(rr$u)[,1:q,drop=F]%*%diag(rr$d[1:q])%*%t(as.matrix(rr$v)[,1:q,drop=F])
+    if (q==1) rec = as.matrix(rr$u)[,1,drop=FALSE]%*%t(as.matrix(rr$v)[,1,drop=FALSE])*rr$d[1]
+
+##if (scale) rec = sweep(rec,2,et,FUN="*")
+
     if (method=="smooth"){
-      f=res.pca$ind$coord[,1:q,drop=F]
-      u=sweep(res.pca$var$coord[,1:q,drop=F],2,sqrt(res.pca$eig[1:q,1]),FUN="/")
-      a=f%*%solve(t(f)%*%f)%*%t(f)
-      b=u%*%solve(t(u)%*%u)%*%t(u)
-      zz=sweep(rec-X,1,1-diag(a),FUN="/")
-      sol2 = sweep(zz,2,1-diag(b),FUN="/")
-      crit=c(crit,mean(sol2^2))
+      if (q>1){
+        a <- apply(rr$u[,1:q]^2,1,sum)
+        b <- apply(rr$v[,1:q]^2,1,sum)
+      } else {
+        a=rr$u[,1]^2
+        b=rr$v[,1]^2
+      }
+      zz=sweep(rec-X,1,1-a,FUN="/")
+      sol = sweep(zz,2,1-b,FUN="/")
+      crit=c(crit,mean(sol^2))
     }    
     if (method=="gcv") crit=c(crit,mean(( (n*p)*(X-rec)/ (n*p- q*(n+p-q)))^2,na.rm=T))
   }
