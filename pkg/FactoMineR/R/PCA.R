@@ -12,19 +12,18 @@ PCA = function (X, scale.unit = TRUE, ncp = 5, ind.sup = NULL, quanti.sup = NULL
     if (any(is.na(X))) {
         warnings("Missing values are imputed by the mean of the variable: you should use the imputePCA function of the missMDA package")
         if (is.null(quali.sup)) 
-            for (j in 1:ncol(X)) X[, j] <- replace(X[, j], is.na(X[, 
-                j]), mean(X[, j], na.rm = TRUE))
-        else for (j in (1:ncol(X))[-quali.sup]) X[, j] <- replace(X[, 
-            j], is.na(X[, j]), mean(X[, j], na.rm = TRUE))
+#            for (j in 1:ncol(X)) X[, j] <- replace(X[, j], is.na(X[, j]), mean(X[, j], na.rm = TRUE))
+            X[is.na(X)] = matrix(apply(X,2,mean,na.rm=TRUE),ncol=ncol(X),nrow=nrow(X),byrow=TRUE)[is.na(X)]
+        else for (j in (1:ncol(X))[-quali.sup]) X[, j] <- replace(X[, j], is.na(X[, j]), mean(X[, j], na.rm = TRUE))
     }
-    if (is.null(rownames(X))) 
-        rownames(X) = 1:nrow(X)
-    if (is.null(colnames(X))) 
-        colnames(X) = paste("V", 1:ncol(X), sep = "")
-    for (j in 1:ncol(X)) if (colnames(X)[j] == "") 
-        colnames(X)[j] = paste("V", j, sep = "")
-    for (j in 1:nrow(X)) if (is.null(rownames(X)[j])) 
-        rownames(X)[j] = paste("row", j, sep = "")
+    if (is.null(rownames(X))) rownames(X) = 1:nrow(X)
+    if (is.null(colnames(X))) colnames(X) = paste("V", 1:ncol(X), sep = "")
+    colnames(X)[colnames(X)==""] <- paste("V",1:sum(colnames(X)==""),sep="")
+    rownames(X)[is.null(rownames(X))] <- paste("row",1:sum(rownames(X)==""),sep="")
+#    for (j in 1:ncol(X)) if (colnames(X)[j] == "") 
+#        colnames(X)[j] = paste("V", j, sep = "")
+#    for (j in 1:nrow(X)) if (is.null(rownames(X)[j])) 
+#        rownames(X)[j] = paste("row", j, sep = "")
     Xtot <- X
     if (!is.null(quali.sup)) 
         X <- X[, -quali.sup]
@@ -36,18 +35,15 @@ PCA = function (X, scale.unit = TRUE, ncp = 5, ind.sup = NULL, quanti.sup = NULL
             auxi))
     }
     todelete <- c(quali.sup, quanti.sup)
-    if (!is.null(todelete)) 
-        X <- Xtot[, -todelete]
+    if (!is.null(todelete)) X <- Xtot[, -todelete]
     if (!is.null(ind.sup)) {
-        X.ind.sup <- X[ind.sup, , drop = F]
-        X <- X[-ind.sup, , drop = F]
+        X.ind.sup <- X[ind.sup, , drop = FALSE]
+        X <- X[-ind.sup, , drop = FALSE]
     }
     ncp <- min(ncp, nrow(X) - 1, ncol(X))
-    if (is.null(row.w)) 
-        row.w <- rep(1, nrow(X))
+    if (is.null(row.w)) row.w <- rep(1, nrow(X))
     row.w <- row.w/sum(row.w)
-    if (is.null(col.w)) 
-        col.w <- rep(1, ncol(X))
+    if (is.null(col.w)) col.w <- rep(1, ncol(X))
     centre <- apply(X, 2, moy.p, row.w)
     data <- X
     X <- as.matrix(sweep(as.matrix(X), 2, centre, FUN = "-"))
@@ -107,7 +103,8 @@ PCA = function (X, scale.unit = TRUE, ncp = 5, ind.sup = NULL, quanti.sup = NULL
             ecart.type, FUN = "/"))
         coord.ind.sup <- sweep(as.matrix(X.ind.sup), 2, col.w, 
             FUN = "*")
-        coord.ind.sup <- coord.ind.sup %*% tmp$V
+##        coord.ind.sup <- coord.ind.sup %*% tmp$V
+        coord.ind.sup <- crossprod(t(coord.ind.sup),tmp$V)
         dist2 <- apply(X.ind.sup^2, 1, sum)
         cos2.ind.sup <- sweep(as.matrix(coord.ind.sup^2), 1, 
             dist2, FUN = "/")
@@ -140,7 +137,8 @@ PCA = function (X, scale.unit = TRUE, ncp = 5, ind.sup = NULL, quanti.sup = NULL
         }
         coord.vcs <- sweep(as.matrix(t(X.quanti.sup)), 2, row.w, 
             FUN = "*")
-        coord.vcs <- coord.vcs %*% tmp$U
+##        coord.vcs <- coord.vcs %*% tmp$U
+        coord.vcs <- crossprod(t(coord.vcs),tmp$U)
         col.w.vcs <- rep(1, ncol(coord.vcs))
         cor.vcs <- matrix(NA, ncol(X.quanti.sup), ncol(tmp$U))
         sigma <- apply(X.quanti.sup, 2, ec, row.w)
@@ -191,7 +189,7 @@ PCA = function (X, scale.unit = TRUE, ncp = 5, ind.sup = NULL, quanti.sup = NULL
                 FUN = "/"))
         coord.barycentre <- sweep(as.matrix(bary), 2, col.w, 
             FUN = "*")
-        coord.barycentre <- coord.barycentre %*% tmp$V
+        coord.barycentre <- crossprod(t(coord.barycentre),tmp$V)
         colnames(coord.barycentre) <- paste("Dim", 1:ncol(coord.barycentre), 
             sep = ".")
         dist2 <- apply(coord.barycentre^2, 1, sum)

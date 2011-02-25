@@ -249,7 +249,7 @@ row.w = row.w[1:nb.actif]
 ##      coord.ind.sup <- length(group.actif) * as.matrix(Xis)%*%diag((res.globale$call$col.w))%*%res.globale$svd$V
       coord.ind.sup <- length(group.actif) * as.matrix(Xis)
       coord.ind.sup <- sweep(coord.ind.sup,2,res.globale$call$col.w,FUN="*")
-      coord.ind.sup <- coord.ind.sup %*%res.globale$svd$V
+      coord.ind.sup <- crossprod(t(coord.ind.sup),res.globale$svd$V)
       res.ind.partiel[[g]]$coord.sup <- coord.ind.sup
     }
     cor.grpe.fact <- as.data.frame(matrix(NA, length(group.actif), ncp.tmp))
@@ -302,7 +302,7 @@ row.w = row.w[1:nb.actif]
     tab.partial.axes <- as.matrix(sweep(tab.partial.axes, 2, ecart.type, FUN = "/"))
 ##    coord.res.partial.axes <- t(tab.partial.axes) %*% diag(res.globale$call$row.w) %*% res.globale$svd$U
     coord.res.partial.axes <- sweep( t(tab.partial.axes) ,2, res.globale$call$row.w,FUN="*")
-    coord.res.partial.axes <- coord.res.partial.axes %*% res.globale$svd$U
+    coord.res.partial.axes <- crossprod(t(coord.res.partial.axes),res.globale$svd$U)
     contrib.res.partial.axes <- sweep(coord.res.partial.axes^2,2,res.globale$eig[,1],FUN="/") *100
     sigma <- apply(tab.partial.axes, 2, ec, res.globale$call$row.w)
     cor.res.partial.axes <- sweep(coord.res.partial.axes,1,sigma,FUN="/")
@@ -395,7 +395,7 @@ row.w = row.w[1:nb.actif]
 ##        coord.quali.sup <- length(group.actif) * as.matrix(Xis)%*%diag((res.globale$call$col.w))%*%res.globale$svd$V
         coord.quali.sup <- length(group.actif) * as.matrix(Xis)
         coord.quali.sup <- sweep(coord.quali.sup ,2,res.globale$call$col.w,FUN="*")
-        coord.quali.sup <- coord.quali.sup %*%res.globale$svd$V
+        coord.quali.sup <- crossprod(t(coord.quali.sup),res.globale$svd$V)
         coord.quali.partiel[liste.ligne + g - 1, ] <- coord.quali.sup[,1:ncp]
         tmp[,,g] <- (coord.quali.sup - res.globale$quali.sup$coord)^2 / length(group.actif) 
       }

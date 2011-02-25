@@ -2,8 +2,10 @@ CA <- function (X, ncp = 5, row.sup = NULL, col.sup = NULL, graph = TRUE, axes=c
     X <- as.data.frame(X)
     if (is.null(rownames(X))) rownames(X) = 1:nrow(X)
     if (is.null(colnames(X))) colnames(X) = paste("V",1:ncol(X),sep="")
-    for (j in 1:ncol(X)) if (colnames(X)[j]=="") colnames(X)[j] = paste("V",j,sep="")
-    for (j in 1:nrow(X)) if (is.null(rownames(X)[j])) rownames(X)[j] = paste("row",j,sep="")
+    colnames(X)[colnames(X)==""] <- paste("V",1:sum(colnames(X)==""),sep="")
+    rownames(X)[is.null(rownames(X))] <- paste("row",1:sum(rownames(X)==""),sep="")
+#    for (j in 1:ncol(X)) if (colnames(X)[j]=="") colnames(X)[j] = paste("V",j,sep="")
+#    for (j in 1:nrow(X)) if (is.null(rownames(X)[j])) rownames(X)[j] = paste("row",j,sep="")
     Xtot <- X
     if (!any(apply(X,2,is.numeric))){
       auxi = NULL

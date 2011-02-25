@@ -162,8 +162,8 @@ plot.HCPC <- function(x, axes=c(1,2), choice="3D.map", rect=TRUE, draw.tree=TRUE
 
       res2 = PCA(Y, quali.sup = ncol(Y), scale.unit = FALSE, row.w = res$call$t$res$call$row.w ,ncp = Inf, graph = FALSE)
 
-      if(ind.names) plot.PCA(res2, title=title, habillage=ncol(Y), cex=0.8,  axes=axes,...)
-      else plot.PCA(res2, title=title, habillage=ncol(Y), cex=0.8, axes=axes, label="none",...)
+      if(ind.names) plot.PCA(res2, title=title, habillage=ncol(Y), cex=0.8,  axes=axes,new.plot=new.plot,...)
+      else plot.PCA(res2, title=title, habillage=ncol(Y), cex=0.8, axes=axes, label="none",new.plot=new.plot,...)
       if(draw.tree) f.draw.tree(X, merge=res$call$t$tree$merge, height=res$call$t$tree$height, dimens=2, t.level=t.level, axes=axes,...)
     }
   }

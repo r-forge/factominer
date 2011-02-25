@@ -6,29 +6,36 @@ svd.triplet = function (X, row.w = NULL, col.w = NULL) {
     X = sweep(X, 1, sqrt(row.w), FUN = "*")
 if (ncol(X)<nrow(X)){
     svd.usuelle <- svd(X)
-    for (i in 1:ncol(svd.usuelle$v)) {
-        if (sum(svd.usuelle$v[, i]) < 0) {
-            svd.usuelle$v[, i] <- - svd.usuelle$v[, i]
-            svd.usuelle$u[, i] <- - svd.usuelle$u[, i]
-        }
+    
+#    for (i in 1:ncol(svd.usuelle$v)) {
+#        if (sum(svd.usuelle$v[, i]) < 0) {
+#            svd.usuelle$v[, i] <- - svd.usuelle$v[, i]
+#            svd.usuelle$u[, i] <- - svd.usuelle$u[, i]
+#        }
+#    }
+    U <-  svd.usuelle$u[, 1:ncol(X)]
+    V <- svd.usuelle$v[, 1:ncol(X)]
+    if (ncol(X) >1){
+      U <- sweep(U,2,sign(apply(V,2,sum)),FUN="*")
+      V <- sweep(V,2,sign(apply(V,2,sum)),FUN="*")
     }
-    U <-  svd.usuelle$u[, 1:min(ncol(X), nrow(X) - 1)]
-    U = sweep(as.matrix(U), 1, sqrt(row.w), FUN = "/")
-    V <- svd.usuelle$v[, 1:min(ncol(X), nrow(X) - 1)]
-    V = sweep(as.matrix(V), 1, sqrt(col.w), FUN = "/")
+    U <- sweep(as.matrix(U), 1, sqrt(row.w), FUN = "/")
+    V <- sweep(as.matrix(V), 1, sqrt(col.w), FUN = "/")
 }
 else{
     svd.usuelle <- svd(t(X))
-    for (i in 1:ncol(svd.usuelle$u)) {
-        if (sum(svd.usuelle$u[, i]) < 0) {
-            svd.usuelle$u[, i] <- -svd.usuelle$u[, i]
-            svd.usuelle$v[, i] <- -svd.usuelle$v[, i]
-        }
-    }
-    U <-  svd.usuelle$v[, 1:min(ncol(X), nrow(X) - 1)]
-    U = sweep(U, 1, sqrt(row.w), FUN = "/")
-    V <- svd.usuelle$u[, 1:min(ncol(X), nrow(X) - 1)]
-    V = sweep(V, 1, sqrt(col.w), FUN = "/")
+#    for (i in 1:ncol(svd.usuelle$u)) {
+#        if (sum(svd.usuelle$u[, i]) < 0) {
+#            svd.usuelle$u[, i] <- -svd.usuelle$u[, i]
+#            svd.usuelle$v[, i] <- -svd.usuelle$v[, i]
+#        }
+#    }
+    U <-  svd.usuelle$v[, 1:(nrow(X) - 1)]
+    V <- svd.usuelle$u[, 1:(nrow(X) - 1)]
+    V <- sweep(V,2,sign(apply(U,2,sum)),FUN="*")
+    U <- sweep(U,2,sign(apply(U,2,sum)),FUN="*")
+    U <- sweep(U, 1, sqrt(row.w), FUN = "/")
+    V <- sweep(V, 1, sqrt(col.w), FUN = "/")
 }
 
     vs <- svd.usuelle$d[1:min(ncol(X), nrow(X) - 1)]
