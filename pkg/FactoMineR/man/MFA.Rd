@@ -30,7 +30,7 @@ MFA (base, group, type = rep("s",length(group)), ind.sup = NULL,
   \item{num.group.sup}{the indexes of the illustrative groups (by default, NULL and no group are illustrative)}
   \item{graph}{boolean, if TRUE a graph is displayed}
   \item{weight.col.mfa}{vector of weights, useful for HMFA method (by default, NULL and an MFA is performed)}
-  \item{row.w}{an optional row weights (by default, uniform row weights)}
+  \item{row.w}{an optional row weights (by default, a vector of 1 for uniform row weights)}
   \item{axes}{a length 2 vector specifying the components to plot}
 }
 
@@ -65,15 +65,19 @@ Multiple Factor Analysis (AFMULT package), \emph{Computational Statistics and Da
 
 \examples{
 data(wine)
-aa = MFA(wine, group=c(2,5,3,10,9,2), type=c("n",rep("s",5)),
+res = MFA(wine, group=c(2,5,3,10,9,2), type=c("n",rep("s",5)),
     ncp=5, name.group=c("orig","olf","vis","olfag","gust","ens"),
     num.group.sup=c(1,6))
-barplot(aa$eig[,1],main="Eigenvalues",names.arg=1:nrow(aa$eig))
+barplot(res$eig[,1],main="Eigenvalues",names.arg=1:nrow(res$eig))
 
 \dontrun{
+#### Confience ellipses around categories per variable
+plotellipses(res)
+plotellipses(res,keepvar="Label") ## for 1 variable
+
 #### Interactive graph
-liste = plot.MFApartial(aa)
-plot(aa,choix="ind",habillage = "Terroir")
+liste = plot.MFApartial(res)
+plot(res,choix="ind",habillage = "Terroir")
 
 ###Example 2
 data (poison)

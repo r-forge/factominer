@@ -1,4 +1,4 @@
-PCA = function (X, scale.unit = TRUE, ncp = 5, ind.sup = NULL, quanti.sup = NULL, 
+PCA <- function (X, scale.unit = TRUE, ncp = 5, ind.sup = NULL, quanti.sup = NULL, 
     quali.sup = NULL, row.w = NULL, col.w = NULL, graph = TRUE, 
     axes = c(1, 2)) 
 {
@@ -42,6 +42,7 @@ PCA = function (X, scale.unit = TRUE, ncp = 5, ind.sup = NULL, quanti.sup = NULL
     }
     ncp <- min(ncp, nrow(X) - 1, ncol(X))
     if (is.null(row.w)) row.w <- rep(1, nrow(X))
+    row.w.init <- row.w
     row.w <- row.w/sum(row.w)
     if (is.null(col.w)) col.w <- rep(1, ncol(X))
     centre <- apply(X, 2, moy.p, row.w)
@@ -53,10 +54,12 @@ PCA = function (X, scale.unit = TRUE, ncp = 5, ind.sup = NULL, quanti.sup = NULL
         X <- sweep(as.matrix(X), 2, ecart.type, FUN = "/")
     }
     else ecart.type <- rep(1, length(centre))
+dist2.ind <- apply(sweep(X,2,sqrt(col.w),FUN="*")^2,1,sum)
+dist2.var <- apply(sweep(X,1,sqrt(row.w),FUN="*")^2,2,sum)
     res.call <- list(row.w = (row.w/sum(row.w)), col.w = col.w, 
         scale.unit = scale.unit, ncp = ncp, centre = centre, 
         ecart.type = ecart.type, X = Xtot)
-    tmp <- svd.triplet(X, row.w = row.w, col.w = col.w)
+    tmp <- svd.triplet(X, row.w = row.w, col.w = col.w,ncp=ncp)
     eig <- tmp$vs^2
     vp <- as.data.frame(matrix(NA, length(eig), 3))
     rownames(vp) <- paste("comp", 1:length(eig))
@@ -70,11 +73,13 @@ PCA = function (X, scale.unit = TRUE, ncp = 5, ind.sup = NULL, quanti.sup = NULL
             "percentage of variance"] + vp[i - 1, "cumulative percentage of variance"]
     V <- tmp$V
     U <- tmp$U
+	eig <- eig[1:ncp]
     coord.ind <- sweep(as.matrix(U), 2, sqrt(eig), FUN = "*")
     coord.var <- sweep(as.matrix(V), 2, sqrt(eig), FUN = "*")
     contrib.var <- sweep(as.matrix(coord.var^2), 2, eig, "/")
     contrib.var <- sweep(as.matrix(contrib.var), 1, col.w, "*")
-    dist2 <- apply(coord.var^2, 1, sum)
+##    dist2 <- apply(coord.var^2, 1, sum)
+dist2 <- dist2.var
     cor.var <- sweep(as.matrix(coord.var), 1, sqrt(dist2), FUN = "/")
     cos2.var <- cor.var^2
     rownames(coord.var) <- rownames(cos2.var) <- rownames(cor.var) <- rownames(contrib.var) <- colnames(X)
@@ -83,7 +88,8 @@ PCA = function (X, scale.unit = TRUE, ncp = 5, ind.sup = NULL, quanti.sup = NULL
     res.var <- list(coord = coord.var[, 1:ncp], cor = cor.var[, 
         1:ncp], cos2 = cos2.var[, 1:ncp], contrib = contrib.var[, 
         1:ncp] * 100)
-    dist2 <- apply(coord.ind^2, 1, sum)
+##    dist2 <- apply(coord.ind^2, 1, sum)
+dist2 <- dist2.ind
     cos2.ind <- sweep(as.matrix(coord.ind^2), 1, dist2, FUN = "/")
     contrib.ind <- sweep(as.matrix(coord.ind^2), 1, row.w/sum(row.w), 
         FUN = "*")
@@ -105,7 +111,7 @@ PCA = function (X, scale.unit = TRUE, ncp = 5, ind.sup = NULL, quanti.sup = NULL
             FUN = "*")
 ##        coord.ind.sup <- coord.ind.sup %*% tmp$V
         coord.ind.sup <- crossprod(t(coord.ind.sup),tmp$V)
-        dist2 <- apply(X.ind.sup^2, 1, sum)
+dist2 <- apply(sweep(X.ind.sup,2,sqrt(col.w),FUN="*")^2,1,sum)
         cos2.ind.sup <- sweep(as.matrix(coord.ind.sup^2), 1, 
             dist2, FUN = "/")
         coord.ind.sup <- as.data.frame(coord.ind.sup[, 1:ncp, 
@@ -142,7 +148,9 @@ PCA = function (X, scale.unit = TRUE, ncp = 5, ind.sup = NULL, quanti.sup = NULL
         col.w.vcs <- rep(1, ncol(coord.vcs))
         cor.vcs <- matrix(NA, ncol(X.quanti.sup), ncol(tmp$U))
         sigma <- apply(X.quanti.sup, 2, ec, row.w)
-        cor.vcs <- sweep(as.matrix(coord.vcs), 1, sigma, FUN = "/")
+dist2 <- apply(sweep(X.quanti.sup,1,sqrt(row.w),FUN="*")^2,2,sum)
+##        cor.vcs <- sweep(as.matrix(coord.vcs), 1, sigma, FUN = "/")
+    cor.vcs <- sweep(as.matrix(coord.vcs), 1, sqrt(dist2), FUN = "/")
         cos2.vcs <- as.data.frame(cor.vcs^2)
         coord.vcs <- as.data.frame(coord.vcs)
         cor.vcs <- as.data.frame(cor.vcs)
@@ -159,7 +167,6 @@ PCA = function (X, scale.unit = TRUE, ncp = 5, ind.sup = NULL, quanti.sup = NULL
             X.quali.sup <- as.data.frame(X.quali.sup[-ind.sup, 
                 ])
         colnames(X.quali.sup) <- colnames(Xtot)[quali.sup]
-        N <- nrow(X)
         nombre <- modalite <- NULL
         for (i in 1:ncol(X.quali.sup)) {
             var <- as.factor(X.quali.sup[, i])
@@ -168,46 +175,34 @@ PCA = function (X, scale.unit = TRUE, ncp = 5, ind.sup = NULL, quanti.sup = NULL
             bary <- matrix(NA, n.mod, ncol(X))
             for (j in 1:n.mod) {
                 ind <- levels(var)[j]
-                bary[j, ] <- apply(data[which(var == ind), ], 
-                  2, moy.p, row.w[which(var == ind)])
-                nombre <- c(nombre, length(var[which(var == ind)]))
+                bary[j, ] <- apply(data[which(var == ind), ], 2, moy.p, row.w[which(var == ind)])
+### modif Avril 2011
+##                nombre <- c(nombre, length(var[which(var == ind)]))
+                nombre <- c(nombre, sum(row.w.init[which(var == ind)]))
             }
             colnames(bary) <- colnames(X)
-            if ((levels(var)[1] %in% (1:nrow(X))) | (levels(var)[1] %in% 
-                c("y", "Y", "n", "N"))) 
-                row.names(bary) <- paste(colnames(X.quali.sup)[i], 
-                  as.character(levels(var)))
+            if ((levels(var)[1] %in% (1:nrow(X))) | (levels(var)[1] %in% c("y", "Y", "n", "N"))) row.names(bary) <- paste(colnames(X.quali.sup)[i], as.character(levels(var)))
             else row.names(bary) <- as.character(levels(var))
-            if (i == 1) 
-                barycentre <- as.data.frame(bary)
+            if (i == 1)  barycentre <- as.data.frame(bary)
             else barycentre <- rbind(barycentre, as.data.frame(bary))
         }
-        bary <- as.matrix(sweep(as.matrix(barycentre), 2, centre, 
-            FUN = "-"))
-        if (!is.null(ecart.type)) 
-            bary <- as.matrix(sweep(as.matrix(bary), 2, ecart.type, 
-                FUN = "/"))
-        coord.barycentre <- sweep(as.matrix(bary), 2, col.w, 
-            FUN = "*")
+        bary <- as.matrix(sweep(as.matrix(barycentre), 2, centre, FUN = "-"))
+        if (!is.null(ecart.type)) bary <- as.matrix(sweep(as.matrix(bary), 2, ecart.type, FUN = "/"))
+dist2 <- apply(sweep(as.matrix(bary)^2,2,col.w,FUN="*"),1,sum)
+        coord.barycentre <- sweep(as.matrix(bary), 2, col.w, FUN = "*")
         coord.barycentre <- crossprod(t(coord.barycentre),tmp$V)
-        colnames(coord.barycentre) <- paste("Dim", 1:ncol(coord.barycentre), 
-            sep = ".")
-        dist2 <- apply(coord.barycentre^2, 1, sum)
-        cos2.bary.sup <- sweep(as.matrix(coord.barycentre^2), 
-            1, dist2, FUN = "/")
-        vtest <- sweep(as.matrix(coord.barycentre), 2, sqrt(eig), 
-            FUN = "/")
-        vtest <- sweep(as.matrix(vtest), 1, sqrt(nombre/((N - 
-            nombre)/(N - 1))), FUN = "*")
+        colnames(coord.barycentre) <- paste("Dim", 1:ncol(coord.barycentre), sep = ".")
+##        dist2 <- apply(coord.barycentre^2, 1, sum)
+        cos2.bary.sup <- sweep(as.matrix(coord.barycentre^2), 1, dist2, FUN = "/")
+        vtest <- sweep(as.matrix(coord.barycentre), 2, sqrt(eig), FUN = "/")
+        vtest <- sweep(as.matrix(vtest), 1, sqrt(nombre/((sum(row.w.init) - nombre)/(sum(row.w.init) - 1))), FUN = "*")
         cos2.bary.sup <- cos2.bary.sup[, 1:ncp]
         coord.barycentre <- coord.barycentre[, 1:ncp]
         vtest <- vtest[, 1:ncp]
         dimnames(cos2.bary.sup) <- dimnames(vtest) <- dimnames(coord.barycentre)
         names(dist2) <- rownames(coord.barycentre)
-        res.quali.sup <- list(coord = coord.barycentre, cos2 = cos2.bary.sup, 
-            v.test = vtest, dist = sqrt(dist2))
-        call.quali.sup <- list(quali.sup = X.quali.sup, modalite = modalite, 
-            nombre = nombre, barycentre = barycentre, numero = quali.sup)
+        res.quali.sup <- list(coord = coord.barycentre, cos2 = cos2.bary.sup, v.test = vtest, dist = sqrt(dist2))
+        call.quali.sup <- list(quali.sup = X.quali.sup, modalite = modalite, nombre = nombre, barycentre = barycentre, numero = quali.sup)
         res$quali.sup = res.quali.sup
         res.call$quali.sup = call.quali.sup
     }

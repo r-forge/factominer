@@ -281,16 +281,16 @@ plot.MFA=function (x, axes = c(1, 2), choix = "ind", ellipse = NULL, ellipse.par
                 else {
                   for (i in 1:length(partial)) {
                     if (partial[i] %in% rownames(coord.ind)) 
-                      group.ind.actif <- c(group.ind.actif, grep(partial[i], 
+                      group.ind.actif <- c(group.ind.actif, match(partial[i], 
                         rownames(coord.ind)))
                     if (partial[i] %in% rownames(coord.ind.sup)) 
-                      group.ind.sup <- c(group.ind.sup, grep(partial[i], 
+                      group.ind.sup <- c(group.ind.sup, match(partial[i], 
                         rownames(coord.ind.sup)))
                     if (partial[i] %in% rownames(coord.quali)) 
-                      group.quali <- c(group.quali, grep(partial[i], 
+                      group.quali <- c(group.quali, match(partial[i], 
                         rownames(coord.quali)))
                     if (partial[i] %in% rownames(coord.quali.sup)) 
-                      group.quali.sup <- c(group.quali.sup, grep(partial[i], 
+                      group.quali.sup <- c(group.quali.sup, match(partial[i], 
                         rownames(coord.quali.sup)))
                   }
                 }
@@ -298,16 +298,16 @@ plot.MFA=function (x, axes = c(1, 2), choix = "ind", ellipse = NULL, ellipse.par
             else {
                 for (i in 1:length(partial)) {
                   if (partial[i] %in% rownames(coord.ind)) 
-                    group.ind.actif <- c(group.ind.actif, grep(partial[i], 
+                    group.ind.actif <- c(group.ind.actif, match(partial[i], 
                       rownames(coord.ind)))
                   if (partial[i] %in% rownames(coord.ind.sup)) 
-                    group.ind.sup <- c(group.ind.sup, grep(partial[i], 
+                    group.ind.sup <- c(group.ind.sup, match(partial[i], 
                       rownames(coord.ind.sup)))
                   if (partial[i] %in% rownames(coord.quali)) 
-                    group.quali <- c(group.quali, grep(partial[i], 
+                    group.quali <- c(group.quali, match(partial[i], 
                       rownames(coord.quali)))
                   if (partial[i] %in% rownames(coord.quali.sup)) 
-                    group.quali.sup <- c(group.quali.sup, grep(partial[i], 
+                    group.quali.sup <- c(group.quali.sup, match(partial[i], 
                       rownames(coord.quali.sup)))
                 }
             }
