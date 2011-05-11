@@ -63,7 +63,6 @@ for (i in 1:length(group)){
 #      row.w <- rep(1,nb.actif)
 #      row.w.moy.ec <- as.integer(!((1:nbre.ind)%in%ind.sup))
 #    } else row.w.moy.ec <- row.w
-
     if ("f1" %in% type||"f2" %in% type) {
 	grfrec1<-c(which(type=="f1"))
 	grfrec2<-c(which(type=="f2"))
@@ -142,6 +141,7 @@ for (i in 1:length(group)){
     if (is.null(row.w)) row.w <- rep(1,nb.actif)
     if (!is.null(ind.sup))  row.w.moy.ec <- c(row.w,rep(0,length(ind.sup)))
     else row.w.moy.ec <- row.w
+
 if (is.null(weight.col.mfa)) weight.col.mfa <- rep(1,sum(group.mod))
 
     for (g in 1:nbre.group) {
