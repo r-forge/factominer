@@ -109,7 +109,7 @@ Z <- tab.disjonctif(X[, act])
 if (any(is.na(X[,act]))){
  if (is.null(tab.disj)){
   if (na.method=="Average") {
-    tab.disj <- tab.disj.prop(X[ind.act, act],row.w=row.w)
+    tab.disj <- tab.disjonctif.prop(X[ind.act, act],row.w=row.w)
     Z[ind.act,] <- tab.disj
   }
   if (na.method=="NA"){

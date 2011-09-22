@@ -1,10 +1,10 @@
-MFA2 <- function (base, group, type = rep("s",length(group)), ind.sup = NULL, ncp = 5, name.group = NULL, num.group.sup = NULL, graph = TRUE, weight.col.mfa = NULL, row.w = NULL, axes=c(1,2),tab.comp=NULL){
+MFA <- function (base, group, type = rep("s",length(group)), ind.sup = NULL, ncp = 5, name.group = NULL, num.group.sup = NULL, graph = TRUE, weight.col.mfa = NULL, row.w = NULL, axes=c(1,2),tab.comp=NULL){
 
-    moy.p <- function(V, poids){
-      res <- sum(V*poids) / sum(poids)
+    moy.p <- function(V, poids) {
+        res <- sum(V * poids,na.rm=TRUE)/sum(poids[!is.na(V)])
     }
     ec <- function(V, poids) {
-      res <- sqrt(sum(V^2 * poids)/sum(poids))
+        res <- sqrt(sum(V^2 * poids,na.rm=TRUE)/sum(poids[!is.na(V)]))
     }
 if (!is.null(tab.comp)){
   if (!is.null(weight.col.mfa)) stop("Weigthings on the variables are not allowed with the tab.comp argument")
