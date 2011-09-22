@@ -80,34 +80,6 @@ ventilation.ordonnee <- function(Xqual,level.ventil=0.05,ind.sup=NULL,row.w=NULL
  return(Xqual)
 }
 
-tab.disj.prop<-function (tab) 
-{
-    tab <- as.data.frame(tab)
-    modalite.disjonctif <- function(i) {
-        moda <- tab[, i]
-        nom <- names(tab)[i]
-        n <- length(moda)
-        moda <- as.factor(moda)
-        x <- matrix(0, n, length(levels(moda)))
-          ind<-(1:n) + n * (unclass(moda) - 1)
-          indNA<-which(is.na(ind))
-                
-        x[(1:n) + n * (unclass(moda) - 1)] <- 1
-        if (length(indNA)!=0) x[indNA,]<- matrix(rep(apply(x,2,sum)/sum(x),each=length(indNA)),nrow=length(indNA))
-        if ((ncol(tab) != 1) & (levels(moda)[1] %in% c(1:nlevels(moda),"n", "N", "y", "Y"))) 
-            dimnames(x) <- list(row.names(tab), paste(nom, levels(moda),sep = "."))
-        else dimnames(x) <- list(row.names(tab), levels(moda))
-        return(x)
-    }
-    if (ncol(tab) == 1) 
-        res <- modalite.disjonctif(1)
-    else {
-        res <- lapply(1:ncol(tab), modalite.disjonctif)
-        res <- as.matrix(data.frame(res, check.names = FALSE))
-    }
-    return(res)
-}
-
 #############
 ## Main program    
 #############
@@ -122,7 +94,6 @@ tab.disj.prop<-function (tab)
     for (j in 1:ncol(X)) {
       if (!is.numeric(X[,j])) levels(X[,j])[which(table(X[ind.act,j])==0)] <- levels(X[,j])[which(table(X[ind.act,j])!=0)[1]]
     }
-
     if (level.ventil > 0) X <- ventil.tab(X,level.ventil=level.ventil,row.w=row.w,ind.sup=ind.sup,quali.sup=quali.sup,quanti.sup=quanti.sup)
 
   niveau <- NULL
@@ -134,12 +105,11 @@ tab.disj.prop<-function (tab)
 nonact <- c(quanti.sup,quali.sup)
 if (!is.null(nonact)) act <- (1:ncol(X))[-nonact]
 else act <- (1:ncol(X))
-
 Z <- tab.disjonctif(X[, act])
 if (any(is.na(X[,act]))){
  if (is.null(tab.disj)){
   if (na.method=="Average") {
-    tab.disj <- tab.disj.prop(X[ind.act, act])
+    tab.disj <- tab.disj.prop(X[ind.act, act],row.w=row.w)
     Z[ind.act,] <- tab.disj
   }
   if (na.method=="NA"){

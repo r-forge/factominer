@@ -6,23 +6,24 @@
 
 \description{
 Performs Multiple Factor Analysis in the sense of Escofier-Pages with supplementary individuals and supplementary groups of variables.
-Groups of variables can be quantitative or categorical.\cr
+Groups of variables can be quantitative, categorical or contingency tables.\cr
 Missing values in numeric variables are replaced by the column mean.
-Missing values in categorical variables are treated as an additional level,
+Missing values in categorical variables are treated as an additional level.
 }
 
 \usage{
 MFA (base, group, type = rep("s",length(group)), ind.sup = NULL, 
     ncp = 5, name.group = NULL, num.group.sup = NULL, 
     graph = TRUE, weight.col.mfa = NULL, row.w = NULL,
-    axes = c(1,2))
+    axes = c(1,2), tab.comp=NULL)
 }
 
 \arguments{
   \item{base}{a data frame with \emph{n} rows (individuals) and \emph{p} columns (variables)}
   \item{group}{a list indicating the number of variables in each group}
-  \item{type}{the type of variables in each group; three possibilities: "c" or "s" for quantitative variables
-  (the difference is that for "s" variables are scaled to unit variance), "n" for categorical variables; by default,
+  \item{type}{the type of variables in each group; four possibilities: "c" or "s" for quantitative variables
+  (the difference is that for "s" variables are scaled to unit variance), "n" for categorical variables and
+  "f" for frequencies (from a contingency tables); by default,
   all variables are quantitative and scaled to unit variance}
   \item{ind.sup}{a vector indicating the indexes of the supplementary individuals}
   \item{ncp}{number of dimensions kept in the results (by default 5)}
@@ -32,6 +33,7 @@ MFA (base, group, type = rep("s",length(group)), ind.sup = NULL,
   \item{weight.col.mfa}{vector of weights, useful for HMFA method (by default, NULL and an MFA is performed)}
   \item{row.w}{an optional row weights (by default, a vector of 1 for uniform row weights)}
   \item{axes}{a length 2 vector specifying the components to plot}
+  \item{tab.comp}{object obtained from the imputeMFA function of the missMDA package that allows to handle missing values}
 }
 
 \value{
@@ -45,8 +47,10 @@ MFA (base, group, type = rep("s",length(group)), ind.sup = NULL,
   \item{ind.sup}{a list of matrices containing all the results for the supplementary individuals (coordinates, square cosine)}
   \item{quanti.var}{a list of matrices containing all the results for the quantitative variables (coordinates, correlation between variables and axes, contribution, cos2)}
   \item{quali.var}{a list of matrices containing all the results for categorical variables (coordinates of each categories of each variables, contribution and v.test which is a criterion with a Normal distribution)}
+  \item{freq}{a list of matrices containing all the results for the frequencies (coordinates, contribution, cos2)}
   \item{quanti.var.sup}{a list of matrices containing all the results for the supplementary quantitative variables (coordinates, correlation between variables and axes, cos2)}
   \item{quali.var.sup}{a list of matrices containing all the results for the supplementary categorical variables (coordinates of each categories of each variables, cos2 and v.test which is a criterion with a Normal distribution)}
+  \item{freq.sup}{a list of matrices containing all the results for the supplementary frequencies (coordinates, cos2)}
   \item{partial.axes}{a list of matrices containing all the results for the partial axes (coordinates, correlation between variables and axes, correlation between partial axes)}
   \item{global.pca}{the result of the analysis when it is considered as a unique weighted PCA}
 
@@ -55,11 +59,11 @@ groups factor map.
 }
 
 \references{
-Escofier, B. and Pagès, J. (1994)
-Multiple Factor Analysis (AFMULT package), \emph{Computational Statistics and Data Analysis}, \bold{18}, 121-140.
+Escofier, B. and Pages, J. (1994) Multiple Factor Analysis (AFMULT package). \emph{Computational Statistics and Data Analysis}, 18, 121-140.\cr
+Becue-Bertaut, M. and Pages, J. '2008) Multiple factor analysis and clustering of a mixture of quantitative, categorical and frequency data. \emph{Computational Statistice and Data Analysis}, 52, 3255-3268.
 }
 
-\author{Jeremy Mazet, Francois Husson \email{Francois.Husson@agrocampus-ouest.fr}}
+\author{Francois Husson \email{Francois.Husson@agrocampus-ouest.fr}, J. Mazet}
 
 \seealso{ \code{\link{print.MFA}}, \code{\link{plot.MFA}}, \code{\link{dimdesc}}}
 
@@ -79,7 +83,7 @@ plotellipses(res,keepvar="Label") ## for 1 variable
 liste = plot.MFApartial(res)
 plot(res,choix="ind",habillage = "Terroir")
 
-###Example 2
+###Example with groups of categorical variables
 data (poison)
 MFA(poison, group=c(2,2,5,6), type=c("s","n","n","n"),
     name.group=c("desc","desc2","symptom","eat"),

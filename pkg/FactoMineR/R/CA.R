@@ -74,8 +74,8 @@ dist2.row <- apply(sweep(Tc^2,2,marge.col,FUN="*"),1,sum)
 dist2.row <- apply(sweep(sweep(X.row.sup,2,marge.col,FUN="-")^2,2,1/marge.col,FUN="*"),1,sum)
 ##    dist2.row <- apply(coord.row.sup^2,1,sum)
     cos2.row.sup <- sweep(coord.row.sup^2,1,dist2.row,FUN="/")
-    coord.row.sup <- as.data.frame(coord.row.sup)[, 1:ncp]
-    cos2.row.sup <- as.data.frame(cos2.row.sup)[, 1:ncp]
+    coord.row.sup <- as.data.frame(coord.row.sup)[, 1:ncp,drop=FALSE]
+    cos2.row.sup <- as.data.frame(cos2.row.sup)[, 1:ncp,drop=FALSE]
     colnames(coord.row.sup) <- colnames(cos2.row.sup) <- paste("Dim", 1:ncp)
     rownames(coord.row.sup) <- rownames(cos2.row.sup) <- rownames(X.row.sup)
     res.row.sup <- list(coord = coord.row.sup, cos2 = cos2.row.sup)

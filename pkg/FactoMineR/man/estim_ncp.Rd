@@ -9,7 +9,7 @@ Estimate the number of components in PCA .
 }
 
 \usage{
-estim_ncp(X, ncp.min=0, ncp.max=NULL, scale=TRUE, method="Smooth")
+estim_ncp(X, ncp.min=0, ncp.max=NULL, scale=TRUE, method="GCV")
 }
 
 \arguments{
@@ -17,7 +17,7 @@ estim_ncp(X, ncp.min=0, ncp.max=NULL, scale=TRUE, method="Smooth")
   \item{ncp.min}{minimum number of dimensions to interpret, by default 0}
   \item{ncp.max}{maximum number of dimensions to interpret, by default NULL which corresponds to the number of columns minus 2}
   \item{scale}{a boolean, if TRUE (value set by default) then data are scaled to unit variance}
-  \item{method}{method used to estimate the number of components, "Smooth" for the smoothing method or "GCV" for the generalized cross-validation approximation (by default "Smooth")}
+  \item{method}{method used to estimate the number of components, "GCV" for the generalized cross-validation approximation or "Smooth" for the smoothing method (by default "GCV")}
 }
 
 \value{

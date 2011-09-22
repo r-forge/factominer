@@ -2,7 +2,7 @@ print.MFA <- function (x, file = NULL, sep = ";", ...){
     res.mfa <- x
     if (!inherits(res.mfa, "MFA")) stop("non convenient data")
     cat("**Results of the Multiple Factor Analysis (MFA)**\n")
-    cat("The analysis was performed on ", nrow(res.mfa$call$X),
+    cat("The analysis was performed on", nrow(res.mfa$call$X),
         "individuals, described by", ncol(res.mfa$call$X), "variables\n")
     cat("*Results are available in the following objects :\n\n")
     res <- array("", c(22, 2), list(1:22, c("name", "description")))
@@ -33,6 +33,17 @@ print.MFA <- function (x, file = NULL, sep = ";", ...){
       res[indice, ] <- c("$quali.var.sup", "results for the categorical supplementary variables")
       indice <- indice + 1
     }
+
+    if (!is.null(res.mfa["freq"]$freq)){
+      res[indice, ] <- c("$freq", "results for the frequencies")
+      indice <- indice + 1
+    }
+    if (!is.null(res.mfa["freq.sup"]$freq.sup)){
+      res[indice, ] <- c("$freq.sup", "results for the supplementary frequencies")
+      indice <- indice + 1
+    }
+	
+	
     if (!is.null(res.mfa$quanti.var)){
       res[indice, ] <- c("$summary.quanti", "summary for the quantitative variables")
       indice <- indice + 1

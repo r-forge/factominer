@@ -1,4 +1,4 @@
-MFA <- function (base, group, type = rep("s",length(group)), ind.sup = NULL, ncp = 5, name.group = NULL, num.group.sup = NULL, graph = TRUE, weight.col.mfa = NULL, row.w = NULL, axes=c(1,2)){
+MFA2 <- function (base, group, type = rep("s",length(group)), ind.sup = NULL, ncp = 5, name.group = NULL, num.group.sup = NULL, graph = TRUE, weight.col.mfa = NULL, row.w = NULL, axes=c(1,2),tab.comp=NULL){
 
     moy.p <- function(V, poids){
       res <- sum(V*poids) / sum(poids)
@@ -6,16 +6,32 @@ MFA <- function (base, group, type = rep("s",length(group)), ind.sup = NULL, ncp
     ec <- function(V, poids) {
       res <- sqrt(sum(V^2 * poids)/sum(poids))
     }
+if (!is.null(tab.comp)){
+  if (!is.null(weight.col.mfa)) stop("Weigthings on the variables are not allowed with the tab.comp argument")
+  if (!is.null(ind.sup)) stop("Supplementary individuals are not allowed with tab.comp")
+  if (!is.null(num.group.sup)) stop("Supplementary groups are not allowed with tab.comp")
+}
+
 nature.var <- NULL
 for (i in 1:length(group)){
   if ((type[i] == "n")&&(!(i%in%num.group.sup))) nature.var <- c(nature.var,rep("quali",group[i]))
   if ((type[i] == "n")&&(i%in%num.group.sup)) nature.var <- c(nature.var,rep("quali.sup",group[i]))
   if (((type[i] == "s")||(type[i] == "c"))&&(!(i%in%num.group.sup))) nature.var <- c(nature.var,rep("quanti",group[i]))
   if (((type[i] == "s")||(type[i] == "c"))&&(i%in%num.group.sup)) nature.var <- c(nature.var,rep("quanti.sup",group[i]))
-  if (((type[i] == "f1")||(type[i] == "f2"))&&(!(i%in%num.group.sup))) nature.var <- c(nature.var,rep("contingency",group[i]))
-  if (((type[i] == "f1")||(type[i] == "f2"))&&(i%in%num.group.sup)) nature.var <- c(nature.var,rep("contingency.sup",group[i]))
+  if (((type[i] == "f")||(type[i] == "f2"))&&(!(i%in%num.group.sup))) nature.var <- c(nature.var,rep("contingency",group[i]))
+  if (((type[i] == "f")||(type[i] == "f2"))&&(i%in%num.group.sup)) nature.var <- c(nature.var,rep("contingency.sup",group[i]))
 }
-
+### Add 
+type.var <- NULL
+for (i in 1:length(group)){
+  if ((type[i] == "n")&&(!(i%in%num.group.sup))) type.var <- c(type.var,rep("quali",group[i]))
+  if ((type[i] == "n")&&(i%in%num.group.sup)) type.var <- c(type.var,rep("quali.sup",group[i]))
+  if (((type[i] == "s")||(type[i] == "c"))&&(!(i%in%num.group.sup))) type.var <- c(type.var,rep("quanti",group[i]))
+  if (((type[i] == "s")||(type[i] == "c"))&&(i%in%num.group.sup)) type.var <- c(type.var,rep("quanti.sup",group[i]))
+  if (((type[i] == "f")||(type[i] == "f2")||(type[i] == "f3"))&&(!(i%in%num.group.sup))) type.var <- c(type.var,rep(type[i],group[i]))
+  if (((type[i] == "f")||(type[i] == "f2")||(type[i] == "f3"))&&(i%in%num.group.sup)) type.var <- c(type.var,rep(paste(type[i],"sup",sep="_"),group[i]))
+}
+## End add
     base <- as.data.frame(base)
     if (!is.null(ind.sup)) {
       base <- rbind.data.frame(base[-ind.sup,],base[ind.sup,])
@@ -59,99 +75,81 @@ for (i in 1:length(group)){
          if (type[g]!="n") for (j in (sum(group[1:(g-1)])+1):sum(group[1:g])) base[,j] <- replace(base[,j],is.na(base[,j]),mean(base[,j],na.rm=TRUE))
       }}
     }
-#    if (is.null(row.w)) {
-#      row.w <- rep(1,nb.actif)
-#      row.w.moy.ec <- as.integer(!((1:nbre.ind)%in%ind.sup))
-#    } else row.w.moy.ec <- row.w
-    if ("f1" %in% type||"f2" %in% type) {
-	grfrec1<-c(which(type=="f1"))
-	grfrec2<-c(which(type=="f2"))
-	if (length(grfrec1)!=0){
-		suma<-0
-		for (i in grfrec1){
-			if (i==1) suma<-sum(base[,1:group[1]])
-			else suma<-suma+sum(base[,(sum(group[1:(i-1)])+1):sum(group[1:i])])
+
+    if (is.null(row.w)) row.w <- rep(1,nb.actif)
+
+    if (any("f" %in% type)+any("f2" %in% type)+any("f3" %in% type)>1) stop("For the contingency tables, the type must the the same")
+    if (("f" %in% type)||("f2" %in% type)||("f3" %in% type)) {
+		grfrec<-c(which(type=="f"),which(type=="f2"),which(type=="f3"))
+
+## pour avoir individus actifs, que ind.sup soit NULL ou non
+##		ind.actif <- !((1:nrow(base))%in%intersect(ind.sup,(1:nrow(base))))
+
+		for (i in grfrec){
+			if ((type[i]=="f2")||(type[i]=="f3")||(i%in%num.group.sup)){
+				if (i==1) base[,1:group[1]]<- base[,1:group[1]]/sum(base[1:nb.actif,1:group[1]])
+				else base[,(sum(group[1:(i-1)])+1):sum(group[1:i])]<-base[,(sum(group[1:(i-1)])+1):sum(group[1:i])]/sum(base[1:nb.actif,(sum(group[1:(i-1)])+1):sum(group[1:i])])
+			}
 		}
-		for (i in grfrec1){
-			if (i==1) base[,1:group[1]]<- base[,1:group[1]]/suma
-			else base[,(sum(group[1:(i-1)])+1):sum(group[1:i])]<-base[,(sum(group[1:(i-1)])+1):sum(group[1:i])]/suma
-		}
+		type.var=="f"
+		sumT <- sum(base[1:nb.actif,as.logical((type.var=="f")+(type.var=="f2")+(type.var=="f3"))])
+		if (sumT==0) sumT <- 1
+		base[,as.logical((type.var=="f")+(type.var=="f_sup")+(type.var=="f2")+(type.var=="f2_sup")+(type.var=="f3")+(type.var=="f3_sup"))]<-base[,as.logical((type.var=="f")+(type.var=="f_sup")+(type.var=="f2")+(type.var=="f2_sup")+(type.var=="f3")+(type.var=="f3_sup"))]/sumT
 		F.jt<-list()
 		Fi.t<-list()
-		for (j in grfrec1){
+		for (j in grfrec){
 			if (j==1){
-				F.jt[[j]]<-apply(base[,1:group[1]],2,sum)
+				F.jt[[j]]<-apply(base[1:nb.actif,1:group[1]],2,sum)
 				Fi.t[[j]]<-apply(base[,1:group[1]],1,sum)
 			}else{
-				F.jt[[j]]<-apply(base[,(sum(group[1:(j-1)])+1):(sum(group[1:(j-1)])+group[j])],2,sum)
+				F.jt[[j]]<-apply(base[1:nb.actif,(sum(group[1:(j-1)])+1):(sum(group[1:(j-1)])+group[j])],2,sum)
 				Fi.t[[j]]<-apply(base[,(sum(group[1:(j-1)])+1):(sum(group[1:(j-1)])+group[j])],1,sum)
 			}
 		}
-		row.w[1:nrow(base)]<-0
+		if ("f"%in%type.var){
+    		row.w[1:nrow(base)]<-0
+			for (j in grfrec){
+				if (!(j%in%num.group.sup)) row.w<-row.w+Fi.t[[j]]
+			}
+		}
+
 		F..t<-numeric()
+		for (j in grfrec)	F..t[j]<-sum(Fi.t[[j]][1:nb.actif])
 	
-		for (j in grfrec1){
-			for (i in 1:nrow(base))	row.w[i]<-row.w[i]+Fi.t[[j]][i]
-			F..t[j]<-sum(Fi.t[[j]])
-		}
-	
-		for(t in grfrec1){
-			for (i in 1:nrow(base)){
-				for (j in 1:group[t]){
-					if (t==1) base[i,j]<-(1/row.w[i])*((base[i,j]/F.jt[[t]][j])-(Fi.t[[t]][i]/F..t[t]))
-					else base[i,(sum(group[1:(t-1)])+j)]<-(1/row.w[i])*((base[i,(sum(group[1:(t-1)])+j)]/F.jt[[t]][j])-(Fi.t[[t]][i]/F..t[t]))			
-				}
+		for(t in grfrec){
+			if (t==1) {
+			    base[,1:group[t]]<-sweep(base[,1:group[t]],2,F.jt[[t]],FUN="/")
+			    base[,1:group[t]]=sweep(base[,1:group[t]],1,Fi.t[[t]]/F..t[t],FUN="-")
+			    base[,1:group[t]]=sweep(base[,1:group[t]],1,row.w,FUN="/")
+			}
+			else {
+			    base[,(sum(group[1:(t-1)])+1):sum(group[1:t])]<-sweep(base[,(sum(group[1:(t-1)])+1):sum(group[1:t])],2,F.jt[[t]],FUN="/")
+			    base[,(sum(group[1:(t-1)])+1):sum(group[1:t])]<-sweep(base[,(sum(group[1:(t-1)])+1):sum(group[1:t])],1,Fi.t[[t]]/F..t[t],FUN="-")
+			    base[,(sum(group[1:(t-1)])+1):sum(group[1:t])]<-sweep(base[,(sum(group[1:(t-1)])+1):sum(group[1:t])],1,row.w,FUN="/")
 			}
 		}
-	}else{
-		for (i in grfrec2){
-			if (i==1) base[,1:group[1]]<- base[,1:group[1]]/sum(base[,1:group[1]])
-			else base[,(sum(group[1:(i-1)])+1):sum(group[1:i])]<-base[,(sum(group[1:(i-1)])+1):sum(group[1:i])]/sum(base[,(sum(group[1:(i-1)])+1):sum(group[1:i])])
-		}
-		P.jt<-list()
-		Pi.t<-list()
-		for (j in grfrec2){
-			if (j==1){
-				P.jt[[j]]<-apply(base[,1:group[1]],2,sum)
-				Pi.t[[j]]<-apply(base[,1:group[1]],1,sum)
-			}else{
-				P.jt[[j]]<-apply(base[,(sum(group[1:(j-1)])+1):(sum(group[1:(j-1)])+group[j])],2,sum)
-				Pi.t[[j]]<-apply(base[,(sum(group[1:(j-1)])+1):(sum(group[1:(j-1)])+group[j])],1,sum)
-			}
-		}
-		row.w[1:nrow(base)]<-0
-		P..t<-numeric()
-	
-		for (j in grfrec2){
-			for (i in 1:nrow(base))	row.w[i]<-row.w[i]+Pi.t[[j]][i]
-			P..t[j]<-sum(Pi.t[[j]])
-		}
-		row.w<-row.w/length(grfrec2)
-	
-		for(t in grfrec2){
-			for (i in 1:nrow(base)){
-				for (j in 1:group[t]){
-					if (t==1) base[i,j]<-(1/row.w[i])*((base[i,j]/P.jt[[t]][j])-Pi.t[[t]][i])
-					else base[i,(sum(group[1:(t-1)])+j)]<-(1/row.w[i])*((base[i,(sum(group[1:(t-1)])+j)]/P.jt[[t]][j])-Pi.t[[t]][i])	
-				}
-			}
-		}	
-	}
-    }
-    if (is.null(row.w)) row.w <- rep(1,nb.actif)
+		row.w <- row.w[1:nb.actif]
+	}		
+
     if (!is.null(ind.sup))  row.w.moy.ec <- c(row.w,rep(0,length(ind.sup)))
     else row.w.moy.ec <- row.w
 
 if (is.null(weight.col.mfa)) weight.col.mfa <- rep(1,sum(group.mod))
 
+### Begin handle missing values
+if (!is.null(tab.comp)){
+  group.mod <- tab.comp$call$group.mod
+  ind.var.group <- tab.comp$call$ind.var
+  tab.comp <- tab.comp$completeObs
+}
+### End  handle missing values
     for (g in 1:nbre.group) {
         aux.base <- as.data.frame(base[, (ind.grpe + 1):(ind.grpe + group[g])])
         dimnames(aux.base) <- list(rownames(base),colnames(base)[(ind.grpe + 1):(ind.grpe + group[g])])
         if (type[g] == "s") res.separe[[g]] <- PCA(aux.base, ind.sup =ind.sup, scale.unit = TRUE, ncp = ncp, row.w=row.w, graph = FALSE, col.w = weight.col.mfa[(ind.grpe + 1):(ind.grpe + group[g])])
         if (type[g] == "c") res.separe[[g]] <- PCA(aux.base, ind.sup =ind.sup, scale.unit = FALSE, ncp = ncp, row.w=row.w,graph = FALSE, col.w = weight.col.mfa[(ind.grpe + 1):(ind.grpe + group[g])])
-        if (type[g]=="f1")  res.separe[[g]] <- PCA(aux.base, ind.sup =ind.sup, scale.unit = FALSE, ncp = ncp, row.w=row.w,graph = FALSE, col.w = 
+        if (type[g]=="f"||type[g]=="f2"||type[g]=="f3")  res.separe[[g]] <- PCA(aux.base, ind.sup =ind.sup, scale.unit = FALSE, ncp = ncp, row.w=row.w,graph = FALSE, col.w = 
 F.jt[[g]]*weight.col.mfa[(ind.grpe + 1):(ind.grpe + group[g])])
-        if (type[g]=="f2") res.separe[[g]] <- PCA(aux.base, ind.sup =ind.sup, scale.unit = FALSE, ncp = ncp, row.w=row.w,graph = FALSE, col.w = P.jt[[g]]/length(grfrec2)*weight.col.mfa[(ind.grpe + 1):(ind.grpe + group[g])])
 
         if (type[g] == "n") {
           for (v in (ind.grpe + 1):(ind.grpe + group[g])) {
@@ -159,6 +157,14 @@ F.jt[[g]]*weight.col.mfa[(ind.grpe + 1):(ind.grpe + group[g])])
           }
           res.separe[[g]] <- MCA(aux.base, ind.sup = ind.sup, ncp=ncp, graph = FALSE, row.w=row.w)
         }
+###  Begin handle missing values
+if (!is.null(tab.comp)){
+ if (type[g] == "s") res.separe[[g]] <- PCA(tab.comp[,ind.var.group[[g]]],scale=TRUE,row.w=row.w,ind.sup=ind.sup,col.w=weight.col.mfa[(ind.grpe + 1):(ind.grpe + group[g])],graph=FALSE)
+ if (type[g] == "c") res.separe[[g]] <- PCA(tab.comp[,ind.var.group[[g]]],scale=FALSE,row.w=row.w,ind.sup=ind.sup,col.w=weight.col.mfa[(ind.grpe + 1):(ind.grpe + group[g])],graph=FALSE)
+ if (type[g] == "n") res.separe[[g]] <- MCA(aux.base, ind.sup = ind.sup, ncp=ncp, graph = FALSE, row.w=row.w,tab.disj=tab.comp[,ind.var.group[[g]]])
+}
+###  End handle missing values
+
         ind.grpe <- ind.grpe + group[g]
     }
     data <- matrix(0,nbre.ind,0)
@@ -168,6 +174,12 @@ F.jt[[g]]*weight.col.mfa[(ind.grpe + 1):(ind.grpe + group[g])])
 ##if (is.null(weight.col.mfa)) weight.col.mfa <- rep(1,length(ponderation))
     for (g in 1:nbre.group) {
         aux.base <- base[, (ind.grpe + 1):(ind.grpe + group[g])]
+###  Begin handle missing values
+        if (!is.null(tab.comp)){
+          if (g==1) aux.base <- tab.comp[,1:group.mod[1]]
+          else aux.base <- tab.comp[,(cumsum(group.mod)[g-1]+1):cumsum(group.mod)[g],drop=FALSE]
+        }
+###  End handle missing values
         aux.base <- as.data.frame(aux.base)
         colnames(aux.base) <- colnames(base)[(ind.grpe + 1):(ind.grpe + group[g])]
         if (type[g] == "s") {
@@ -182,23 +194,32 @@ F.jt[[g]]*weight.col.mfa[(ind.grpe + 1):(ind.grpe + group[g])])
           data <- cbind.data.frame(data, aux.base)
           ponderation[(ind.grpe.mod + 1):(ind.grpe.mod + group.mod[g])] <- 1/res.separe[[g]]$eig[1,1]
         }
-        if (type[g] == "f1"||type[g] == "f2") {
-          data <- cbind.data.frame(data, aux.base)
-    			if (type[g]=="f1") ponderation[(ind.grpe.mod+1):(ind.grpe.mod+group[g])]<-F.jt[[g]]/res.separe[[g]]$eig[1,1]
-		    	else ponderation[(ind.grpe+1):(ind.grpe.mod+group[g])]<-P.jt[[g]]/length(grfrec2)/res.separe[[g]]$eig[1,1]
-          type[g]="c"
+        if (type[g] == "f"||type[g] == "f2") {
+			data <- cbind.data.frame(data, aux.base)
+			ponderation[(ind.grpe.mod+1):(ind.grpe.mod+group[g])]<-F.jt[[g]]/res.separe[[g]]$eig[1,1]
+#    		if (type[g]=="f") ponderation[(ind.grpe.mod+1):(ind.grpe.mod+group[g])]<-F.jt[[g]]/res.separe[[g]]$eig[1,1]
+#		    else ponderation[(ind.grpe+1):(ind.grpe.mod+group[g])]<-P.jt[[g]]/length(grfrec2)/res.separe[[g]]$eig[1,1]
         }
 
 ## modif Avril 2011
         if (type[g] == "n") {
-            tmp <- tab.disjonctif(aux.base)
-## ici
-			if (!is.null(ind.sup)) row.w
-            group.mod[g] <- ncol(tmp)
+## a remettre si j'enleve yyyyy
+#              tmp <- tab.disjonctif(aux.base)
+#              group.mod[g] <- ncol(tmp)
+## fin  a remettre si j'enleve yyyyy
+###  Begin handle missing values
+            if (!is.null(tab.comp)){
+              if (g==1) tmp <- tab.comp[,1:group.mod[1]]
+              else tmp <- tab.comp[,(cumsum(group.mod)[g-1]+1):cumsum(group.mod)[g],drop=FALSE]
+            } else {
+              tmp <- tab.disjonctif(aux.base)
+              group.mod[g] <- ncol(tmp)
+			}
+###  End handle missing values
             centre.tmp <- apply(tmp, 2, moy.p, row.w.moy.ec)
             centre.tmp <- centre.tmp/sum(row.w.moy.ec)
             tmp2 <- sweep(tmp,1,row.w.moy.ec/sum(row.w.moy.ec),FUN="*")
-        poids.bary<-c(poids.bary,apply(tmp2,2,sum))
+            poids.bary<-c(poids.bary,apply(tmp2,2,sum))
             poids.tmp <- 1-apply(tmp2, 2, sum)
             ponderation[(ind.grpe.mod + 1):(ind.grpe.mod + group.mod[g])] <- poids.tmp/(res.separe[[g]]$eig[1,1] * group[g])
             tmp <- tmp/sum(row.w.moy.ec)
@@ -209,7 +230,6 @@ F.jt[[g]]*weight.col.mfa[(ind.grpe + 1):(ind.grpe + group[g])])
             data <- cbind.data.frame(data, as.data.frame(tmp))
         }
 ## Fin modif
-
         ind.grpe <- ind.grpe + group[g]
         ind.grpe.mod <- ind.grpe.mod + group.mod[g]
     }
@@ -223,7 +243,7 @@ F.jt[[g]]*weight.col.mfa[(ind.grpe + 1):(ind.grpe + group[g])])
       colnames.data.group.sup <- NULL
       for (i in 1:nbre.group) {
         if (i%in%num.group.sup){
-          if (type[i]=="c") supp.quanti = c(supp.quanti,(1+nb.of.var):(nb.of.var+group.mod[i]))
+          if ((type[i]=="c")||(type[i]=="f")) supp.quanti = c(supp.quanti,(1+nb.of.var):(nb.of.var+group.mod[i]))
           if (type[i]=="n") supp.quali = c(supp.quali,(1+nb.of.var):(nb.of.var+group.mod[i]))
           if (is.null(data.group.sup)) data.group.sup <- as.data.frame(data[,(1+nb.of.var):(nb.of.var+group.mod[i])])
           else data.group.sup <- cbind.data.frame(data.group.sup,data[,(1+nb.of.var):(nb.of.var+group.mod[i])])
@@ -253,9 +273,25 @@ F.jt[[g]]*weight.col.mfa[(ind.grpe + 1):(ind.grpe + group[g])])
       else aux.quali.sup.indice <- (ncol(data)+ncol(data.group.sup)+1):(ncol(data)+ncol(data.group.sup)+ncol(aux.quali.sup))
       data.pca <- cbind.data.frame(data.pca,aux.quali.sup)
     }
-#    res.globale <- PCA(data.pca, scale.unit = FALSE, col.w = ponderation, ncp = ncp.tmp, ind.sup = ind.sup, quali.sup = aux.quali.sup.indice, quanti.sup = data.group.sup.indice, graph = FALSE)
 row.w = row.w[1:nb.actif]
+###  Begin handle missing values
+if ((!is.null(tab.comp))&(any("n"%in%type))){
+  data.pca = data.pca[,-aux.quali.sup.indice]
+  aux.quali.sup.indice=NULL
+}
+
+###  End handle missing values
     res.globale <- PCA(data.pca, scale.unit = FALSE, col.w = ponderation, row.w=row.w,ncp = ncp.tmp, ind.sup = ind.sup, quali.sup = aux.quali.sup.indice, quanti.sup = data.group.sup.indice, graph = FALSE)
+
+###  Begin handle missing values
+if ((!is.null(tab.comp))&(any("n"%in%type))){
+  res.globale$quali.var$coord = res.globale$var$coord[unlist(ind.var.group[type%in%"n"]),]
+  res.globale$quali.var$contrib = res.globale$var$contrib[unlist(ind.var.group[type%in%"n"]),]
+  res.globale$quali.var$cos2 = res.globale$var$cos2[unlist(ind.var.group[type%in%"n"]),]
+  res.globale$call$quali.sup$barycentre <- sweep(crossprod(tab.comp[,unlist(ind.var.group[type%in%"n"])],as.matrix(data.pca)),1,apply(tab.comp[,unlist(ind.var.group[type%in%"n"])],2,sum),FUN="/")
+  res.globale$quali.sup$coord <- sweep(crossprod(tab.comp[,unlist(ind.var.group[type%in%"n"])],res.globale$ind$coord),1,apply(tab.comp[,unlist(ind.var.group[type%in%"n"])],2,sum),FUN="/")
+}
+###  End handle missing values
     ncp <- min(ncp, nrow(res.globale$eig))
     call <- res.globale$call
     call$group <- group
@@ -425,7 +461,7 @@ tmp <- sweep(tmp,1,row.w,FUN="*")
     summary.c <- as.data.frame(matrix(NA, 0, 6))
     colnames(summary.c) <- c("group", "variable", "moyenne", "ecart.type", "minimum", "maximum")
     for (g in 1:nbre.group) {
-        if (type[g] == "c") {
+        if ((type[g] == "c")||(type[g]=="f")) {
             statg <- as.data.frame(matrix(NA, ncol(res.separe[[g]]$call$X), 6))
             colnames(statg) <- c("group", "variable", "moyenne", "ecart.type", "minimum", "maximum")
             statg[, "group"] <- rep(g, nrow(statg))
@@ -565,9 +601,11 @@ tmp <- sweep(tmp,1,row.w,FUN="*")
       if (bool.sup) res.quali.var.sup <- list(coord = coord.quali.sup, cos2 = cos2.quali.sup, v.test = val.test.quali.sup, coord.partiel = coord.quali.partiel.sup, within.inertia = inertie.intra.cg.sup, within.partial.inertia = inertie.intra.cg.partiel.sup)
     }
     indice.quanti <- NULL
+    indice.freq <- NULL
     num.tmp <- 0
     for (g in group.actif) {
         if (type[g] == "c")  indice.quanti <- c(indice.quanti, c((num.tmp + 1):(num.tmp + group.mod[g])))
+        if (type[g] == "f")  indice.freq <- c(indice.freq, c((num.tmp + 1):(num.tmp + group.mod[g])))
         num.tmp <- num.tmp + group.mod[g]
     }
     res.quanti.var <- NULL
@@ -579,27 +617,36 @@ tmp <- sweep(tmp,1,row.w,FUN="*")
       cor.quanti.var <- res.globale$var$cor[indice.quanti, 1:ncp,drop=FALSE]
       res.quanti.var <- list(coord = coord.quanti.var, contrib = contrib.quanti.var, cos2 = cos2.quanti.var, cor = cor.quanti.var)
     }
+    res.freq <- NULL
+    if (!is.null(indice.freq)){
+      coord.freq <- res.globale$var$coord[indice.freq,1:ncp,drop=FALSE]
+      coord.freq <- as.data.frame(res.globale$var$coord[indice.freq,1:ncp,drop=FALSE])
+      cos2.freq <- res.globale$var$cos2[indice.freq, 1:ncp,drop=FALSE]
+      contrib.freq <- res.globale$var$contrib[indice.freq, 1:ncp,drop=FALSE]
+      res.freq <- list(coord = coord.freq, contrib = contrib.freq, cos2 = cos2.freq)
+    }
 
     res.quanti.var.sup <- NULL
+    res.freq.sup <- NULL
     if (!is.null(num.group.sup)){
       num.tmp <- 0
       indice.quanti <- NULL
-      eig.aux <- NULL
+      indice.freq <- NULL
       for (g in num.group.sup) {
-        if (type[g] == "c") {
-          indice.quanti <- c(indice.quanti, c((num.tmp + 1):(num.tmp + group.mod[g])))
-          eig.aux <- c(eig.aux, rep(res.separe[[g]]$eig[1,1],group.mod[g]*ncp))
-        }
+        if (type[g] == "c") indice.quanti <- c(indice.quanti, c((num.tmp + 1):(num.tmp + group.mod[g])))
+        if (type[g]=="f") indice.freq <- c(indice.freq, c((num.tmp + 1):(num.tmp + group.mod[g])))
         num.tmp <- num.tmp + group.mod[g]
       }
       if (!is.null(indice.quanti)){
         coord.quanti.var.sup <- res.globale$quanti.sup$coord[indice.quanti,1:ncp,drop=FALSE]
         cos2.quanti.var.sup <- res.globale$quanti.sup$cos2[indice.quanti, 1:ncp,drop=FALSE]
-#        contrib.quanti.var.sup <- res.globale$quanti.sup$contrib[indice.quanti, 1:ncp]
-#        contrib.quanti.var.sup <- sweep(as.data.frame(contrib.quanti.var.sup)[,1:ncp], 2, eig.aux, "/")
         cor.quanti.var.sup <- res.globale$quanti.sup$cor[indice.quanti, 1:ncp,drop=FALSE]
-#        res.quanti.var.sup <- list(coord = coord.quanti.var.sup, contrib = contrib.quanti.var.sup, cos2 = cos2.quanti.var.sup, cor = cor.quanti.var.sup)
         res.quanti.var.sup <- list(coord = coord.quanti.var.sup, cos2 = cos2.quanti.var.sup, cor = cor.quanti.var.sup)
+      }
+      if (!is.null(indice.freq)){
+        coord.freq.sup <- res.globale$quanti.sup$coord[indice.freq,1:ncp,drop=FALSE]
+        cos2.freq.sup <- res.globale$quanti.sup$cos2[indice.freq, 1:ncp,drop=FALSE]
+        res.freq.sup <- list(coord = coord.freq.sup, cos2 = cos2.freq.sup)
       }
     }
 
@@ -621,6 +668,8 @@ cor.partial.axes <- cov.wt(aux,wt=row.w/sum(row.w),method="ML",cor=TRUE)$cor
     if (!is.null(c(bool.act,bool.sup))) resultats$summary.quali = summary.n
     if (!is.null(res.quanti.var)) resultats$quanti.var = res.quanti.var
     if (!is.null(res.quanti.var.sup)) resultats$quanti.var.sup = res.quanti.var.sup
+    if (!is.null(res.freq)) resultats$freq = res.freq
+    if (!is.null(res.freq.sup)) resultats$freq.sup = res.freq.sup
     if (bool.act) resultats$quali.var = res.quali.var
     if (bool.sup) resultats$quali.var.sup = res.quali.var.sup
     resultats$partial.axes = res.partial.axes
@@ -643,7 +692,8 @@ cor.partial.axes <- cov.wt(aux,wt=row.w/sum(row.w),method="ML",cor=TRUE)$cor
       }
       max.inertia <- order(apply(resultats$ind$within.inertia[,1:2],1,sum))
       plot.MFA(resultats,choix="ind",invisible="quali",partial=rownames(resultats$ind$coord)[max.inertia[c(1:2,nrow(resultats$ind$coord)-1,nrow(resultats$ind$coord))]],habillage="group",axes=axes)
-      if (!is.null(c(res.quanti.var,res.quanti.var.sup))) plot.MFA(resultats,choix="var",habillage="group",axes=axes)
+      if ("c"%in%type) plot.MFA(resultats,choix="var",habillage="group",axes=axes)
+      if ("f"%in%type) plot.MFA(resultats,choix="freq",habillage="group",axes=axes)
       plot.MFA(resultats,choix="ind",invisible="quali",habillage = "none",axes=axes)
       plot.MFA(resultats,choix="axes",habillage="group",axes=axes)
       plot.MFA(resultats,choix="group",axes=axes)
