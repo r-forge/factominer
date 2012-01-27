@@ -87,13 +87,13 @@ ventilation.ordonnee <- function(Xqual,level.ventil=0.05,ind.sup=NULL,row.w=NULL
   X <- as.data.frame(X)
   if (is.null(rownames(X))) rownames(X) = 1:nrow(X)
   if (is.null(colnames(X))) colnames(X) = paste("V", 1:ncol(X), sep = "")
-  if (!is.null(ind.sup)) ind.act <- (1:nrow(X))[-ind.sup]
-  else ind.act <- (1:nrow(X))
+  ind.act <- (1:nrow(X))[!(1:nrow(X))%in%ind.sup]
 
   ## avoid problem when a category has 0 individuals
     for (j in 1:ncol(X)) {
       if (!is.numeric(X[,j])) levels(X[,j])[which(table(X[ind.act,j])==0)] <- levels(X[,j])[which(table(X[ind.act,j])!=0)[1]]
     }
+
     if (level.ventil > 0) X <- ventil.tab(X,level.ventil=level.ventil,row.w=row.w,ind.sup=ind.sup,quali.sup=quali.sup,quanti.sup=quanti.sup)
 
   niveau <- NULL
@@ -154,7 +154,7 @@ if (!is.null(quanti.sup)){
     res.mca$call$quali.sup = quali.sup
     res.mca$call$quanti.sup = quanti.sup
     res.mca$call$row.w = row.w
-    if (length(act)>1) res.mca$eig <- res.mca$eig[1:(sum(unlist(lapply(Xact,nlevels)))-ncol(Xact)),]
+    if (length(act)>1) res.mca$eig <- res.mca$eig[1:min(length(ind.act)-1,sum(unlist(lapply(Xact,nlevels)))-ncol(Xact)),]
     else res.mca$eig <- res.mca$eig[1:(nlevels(Xact)-1),]
     names(res.mca)[3] <- "ind"
     res.mca$ind <- res.mca$ind[1:3]

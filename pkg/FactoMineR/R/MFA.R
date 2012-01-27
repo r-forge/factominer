@@ -33,6 +33,10 @@ for (i in 1:length(group)){
 }
 ## End add
     base <- as.data.frame(base)
+  ## avoid problem when a category has 0 individuals
+    for (j in 1:ncol(base)) {
+      if (!is.numeric(base[,j])) levels(base[,j])[which(table(base[!(1:nrow(base))%in%ind.sup,j])==0)] <- levels(base[,j])[which(table(base[!(1:nrow(base))%in%ind.sup,j])!=0)[1]]
+    }
     if (!is.null(ind.sup)) {
       base <- rbind.data.frame(base[-ind.sup,],base[ind.sup,])
       ind.sup <- (nrow(base)-length(ind.sup)+1) : nrow(base)
@@ -84,7 +88,6 @@ for (i in 1:length(group)){
 
 ## pour avoir individus actifs, que ind.sup soit NULL ou non
 ##		ind.actif <- !((1:nrow(base))%in%intersect(ind.sup,(1:nrow(base))))
-
 		for (i in grfrec){
 			if ((type[i]=="f2")||(type[i]=="f3")||(i%in%num.group.sup)){
 				if (i==1) base[,1:group[1]]<- base[,1:group[1]]/sum(base[1:nb.actif,1:group[1]])
@@ -92,6 +95,10 @@ for (i in 1:length(group)){
 			}
 		}
 		type.var=="f"
+## Modif november 2011
+        if(!any(type.var=="f")) sumT <-1
+		else sumT <- sum(base[1:nb.actif,as.logical((type.var=="f")+(type.var=="f2")+(type.var=="f3"))])
+## Modif november 2011
 		sumT <- sum(base[1:nb.actif,as.logical((type.var=="f")+(type.var=="f2")+(type.var=="f3"))])
 		if (sumT==0) sumT <- 1
 		base[,as.logical((type.var=="f")+(type.var=="f_sup")+(type.var=="f2")+(type.var=="f2_sup")+(type.var=="f3")+(type.var=="f3_sup"))]<-base[,as.logical((type.var=="f")+(type.var=="f_sup")+(type.var=="f2")+(type.var=="f2_sup")+(type.var=="f3")+(type.var=="f3_sup"))]/sumT
