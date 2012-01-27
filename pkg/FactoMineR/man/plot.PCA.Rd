@@ -2,7 +2,7 @@
 
 \alias{plot.PCA}
 
-\title{Make the Principal Component Analysis (PCA) graphs}
+\title{Draw the Principal Component Analysis (PCA) graphs}
 
 \description{
 Plot the graphs for a Principal Component Analysis (PCA) with supplementary individuals, supplementary quantitative 

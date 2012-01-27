@@ -75,7 +75,7 @@ res = MFA(wine, group=c(2,5,3,10,9,2), type=c("n",rep("s",5)),
 barplot(res$eig[,1],main="Eigenvalues",names.arg=1:nrow(res$eig))
 
 \dontrun{
-#### Confience ellipses around categories per variable
+#### Confidence ellipses around categories per variable
 plotellipses(res)
 plotellipses(res,keepvar="Label") ## for 1 variable
 
@@ -88,6 +88,11 @@ data (poison)
 MFA(poison, group=c(2,2,5,6), type=c("s","n","n","n"),
     name.group=c("desc","desc2","symptom","eat"),
     num.group.sup=1:2)
+
+###Example with groups of frequency tables
+data(mortality)
+res<-MFA(mortality,group=c(9,9),type=c("f","f"),
+    name.group=c("1979","2006"))
 }
 }
 

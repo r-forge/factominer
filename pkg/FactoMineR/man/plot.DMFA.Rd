@@ -2,7 +2,7 @@
 
 \alias{plot.DMFA}
 
-\title{Perform a Duale Multiple Factor Analysis (DMFA) graphs}
+\title{Draw the Duale Multiple Factor Analysis (DMFA) graphs}
 
 \description{
 Plot the graphs for a Principal Component Analysis (DMFA) with supplementary individuals, supplementary quantitative 
